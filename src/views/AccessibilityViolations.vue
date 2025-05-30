@@ -6,12 +6,13 @@
     </button>
     <div
       v-for="violation in violations"
-      :key="violation.id"
       class="card"
+      :key="violation.id"
     >
       <ul>
         <li
           v-for="(value, key) in violation"
+          :key="violation.id + '_' + key"
         >
           <strong>{{ key }}:</strong>
           {{ value }}
