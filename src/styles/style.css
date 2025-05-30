@@ -1,15 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
-body {
-  font-family: 'DM Sans', Avenir, Helvetica, Arial, sans-serif;
+/* Root colors are in light mode */
+:root {
+  --border-color: #9CA3AF33;
+  --base-bg: #FFF;
+  --base-ink: #000;
+  --icon-fill: #0B1015;
 }
 
 .dark {
-  background: #121212;
-  color: #FBFBFE;
+  --base-bg: #121212;
+  --base-ink: #FBFBFE;
+  --icon-fill: #DFE0E2;
 }
 
-.light {
-  background: #FFF;
-  color: #000;
+body {
+  background: var(--base-bg);
+  color: var(--base-ink);
+  font-family: 'DM Sans', Avenir, Helvetica, Arial, sans-serif;
+  font-size: 13.125px;
+}
+
+a {
+  color: var(--ink-base);
+  text-decoration: none;
+  opacity: 0.7;
+}
+a:hover {
+  opacity: 1.0;
 }
