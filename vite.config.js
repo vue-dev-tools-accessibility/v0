@@ -9,7 +9,7 @@ import vueDevTools from 'vite-plugin-vue-devtools';
 import { configDefaults } from 'vitest/dist/config.js';
 
 export default defineConfig({
-  base: '/v0'
+  base: '/v0',
   build: {
     rollupOptions: {
       output: {
