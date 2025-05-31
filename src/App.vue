@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { themeStore } from '@/stores/theme.js';
+
 import {
   listenToParent,
   sendToParent
@@ -22,7 +24,10 @@ export default {
   methods: {
     initialize: function () {
       listenToParent();
-      sendToParent(REQUESTS.SEND_THEME);
+      sendToParent(REQUESTS.SEND_THEME, themeStore().theme);
+      document.addEventListener('focus', () => {
+        sendToParent(REQUESTS.SEND_THEME, themeStore().theme);
+      });
     }
   },
   created: function () {
@@ -30,3 +35,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+main {
+  height: calc(100vh - 39.5px);
+  padding: 11.25px;
+  overflow: auto;
+}
+</style>

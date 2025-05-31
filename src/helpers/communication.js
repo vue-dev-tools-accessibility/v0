@@ -1,12 +1,8 @@
+import { themeStore } from '@/stores/theme.js';
 import { violationsStore } from '@/stores/violations.js';
 
 import { REQUESTS } from '@/helpers/constants.js';
 
-const setTheme = (theme) => {
-  window.document.body.classList.remove('light');
-  window.document.body.classList.remove('dark');
-  window.document.body.classList.add(theme);
-};
 const handleError = (error) => {
   console.log('Axe had an error', error);
 };
@@ -15,7 +11,7 @@ export const listenToParent = () => {
   const displayMessage = ($event) => {
     const data = $event.message || $event.data;
     if (data.theme) {
-      setTheme(data.theme);
+      themeStore().setTheme(data.theme);
     }
     if (data.error) {
       handleError(data.error);
@@ -30,9 +26,9 @@ export const listenToParent = () => {
     window.attachEvent('onmessage', displayMessage);
   }
 };
-export const sendToParent = (action) => {
+export const sendToParent = (action, data) => {
   // Limit requests to parent to only those permitted
   if (Object.values(REQUESTS).includes(action)) {
-    parent.postMessage({ action }, '*');
+    parent.postMessage({ action, data }, '*');
   }
 };

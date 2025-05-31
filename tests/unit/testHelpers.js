@@ -1,4 +1,7 @@
+import { createTestingPinia } from '@pinia/testing';
 import { mount, shallowMount } from '@vue/test-utils';
+
+import { router } from '@/router/index.js';
 
 export default {
   setupOptions: function (options) {
@@ -6,6 +9,10 @@ export default {
     options.global = options.global || {};
 
     options.global.plugins = [
+      router,
+      createTestingPinia({
+        stubActions: false
+      })
     ];
 
     return options;

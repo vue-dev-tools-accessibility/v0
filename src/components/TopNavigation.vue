@@ -1,12 +1,14 @@
 <template>
   <header>
     <div class="links">
-      <RouterLink :to="{ name: 'violations' }">
-        Violations
-      </RouterLink>
-      <RouterLink :to="{ name: 'about' }">
-        About
-      </RouterLink>
+      <RouterLink
+        class="link"
+        :to="{ name: 'violations' }"
+      >Violations</RouterLink>
+      <RouterLink
+        class="link"
+        :to="{ name: 'about' }"
+      >About</RouterLink>
     </div>
     <div class="icons">
       <a
@@ -60,12 +62,31 @@ header {
   justify-content: space-between;
   height: 38.5px;
   border-bottom: 1px solid var(--border-color);
-  padding: 0px 11.25px;
+  padding: 0rem 0.75rem;
+  font-feature-settings: normal;
+  font-size: 0.875rem;
+  font-variant-settings: normal;
+  font-weight: 500;
+  line-height: 1;
 }
 .links {
   display: flex;
-  gap: 11.25px;
+  gap: 0.75rem;
 }
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38.5px;
+  border-bottom: 2px solid transparent;
+  text-rendering: geometricPrecision;
+}
+.router-link-active {
+  border-bottom-color: var(--active-ink);
+  color: var(--active-ink);
+  opacity: 1.0;
+}
+
 .icons {
   display: flex;
 }
@@ -76,6 +97,9 @@ header {
   width: 21px;
   margin-right: 7.5px;
   color: var(--icon-fill);
+}
+.icons a:last-of-type {
+  margin-right: 0px;
 }
 .icons svg {
   width: 19.2px;

@@ -5,6 +5,7 @@
   --border-color: #9CA3AF33;
   --base-bg: #FFF;
   --base-ink: #000;
+  --active-ink: #56CD96;
   --icon-fill: #0B1015;
 }
 
@@ -14,11 +15,27 @@
   --icon-fill: #DFE0E2;
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+html {
+  font-size: 15px;
+}
+
 body {
   background: var(--base-bg);
   color: var(--base-ink);
-  font-family: 'DM Sans', Avenir, Helvetica, Arial, sans-serif;
-  font-size: 13.125px;
+  font-family: DM Sans, Avenir, sans-serif;
+  font-size: 16px;
+  overflow: hidden;
+  tab-size: 4;
 }
 
 a {
