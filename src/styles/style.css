@@ -7,8 +7,11 @@
   --base-ink: #000;
   --active-ink: #56CD96;
   --icon-fill: #0B1015;
+  --card-hover-bg: #A3E6351A;
+  --card-hover-ink: #65A30D;
+  --link-ink-blue: #60A5FA;
+  --link-ink-yellow: #FACC15;
 }
-
 .dark {
   --base-bg: #121212;
   --base-ink: #FBFBFE;

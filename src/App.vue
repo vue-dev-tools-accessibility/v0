@@ -39,7 +39,6 @@ export default {
 <style scoped>
 main {
   height: calc(100vh - 39.5px);
-  padding: 11.25px;
   overflow: auto;
 }
 </style>

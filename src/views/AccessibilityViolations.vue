@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <button class="run-axe" @click="runAxe">
       <svg
         viewBox="0 0 32 32"
@@ -53,6 +53,9 @@ export default {
 </script>
 
 <style scoped>
+.wrapper {
+  padding: 11.25px;
+}
 .run-axe {
   display: flex;
   align-items: center;
