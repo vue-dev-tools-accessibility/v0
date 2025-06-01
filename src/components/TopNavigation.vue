@@ -4,11 +4,20 @@
       <RouterLink
         class="link"
         :to="{ name: 'violations' }"
-      >Violations</RouterLink>
+      >
+        Violations
+        <span
+          v-if="totalViolations"
+          v-html="totalViolations"
+          class="pill"
+        ></span>
+      </RouterLink>
       <RouterLink
         class="link"
         :to="{ name: 'about' }"
-      >About</RouterLink>
+      >
+        About
+      </RouterLink>
     </div>
     <div class="icons">
       <a
@@ -50,8 +59,17 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+
+import { violationsStore } from '@/stores/violations.js';
+
 export default {
-  name: 'TopNavigation'
+  name: 'TopNavigation',
+  computed: {
+    ...mapState(violationsStore, [
+      'totalViolations'
+    ])
+  }
 };
 </script>
 
@@ -84,6 +102,23 @@ header {
 .router-link-active {
   border-bottom-color: var(--active-ink);
   color: var(--active-ink);
+  opacity: 1.0;
+}
+
+.pill {
+  display: inline-block;
+  background: var(--base-ink);
+  border-radius: 50px;
+  margin: 0px 0px 0px 5px;
+  padding: 4px 8px;
+  color: var(--base-bg);
+  font-weight: 300;
+  opacity: 0.9;
+}
+.router-link-active .pill {
+  background: var(--active-ink);
+}
+.link:hover .pill {
   opacity: 1.0;
 }
 

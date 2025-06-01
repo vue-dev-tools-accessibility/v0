@@ -11,18 +11,37 @@
         />
       </svg>
     </button>
+
     <div
       v-for="violation in violations"
       class="card"
       :key="violation.id"
     >
+      <div>
+        <strong>Violation:</strong> {{ violation.id }}
+      </div>
+      <div>
+        <strong>{{ violation.nodes.length }}</strong> violations
+      </div>
       <ul>
         <li
           v-for="(value, key) in violation"
           :key="violation.id + '_' + key"
         >
           <strong>{{ key }}:</strong>
-          {{ value }}
+          <ul v-if="key === 'nodes'">
+            <li v-for="node in violation.nodes">
+              <ul v-for="(subValue, subKey) in node">
+                <li>
+                  <strong>{{ subKey }}:</strong>
+                  {{ subValue }}
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <span v-else>
+            &nbsp;{{ value }}
+          </span>
         </li>
       </ul>
     </div>
