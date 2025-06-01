@@ -12,6 +12,13 @@ export const themeStore = defineStore('theme', {
       window.document.body.classList.remove('light');
       window.document.body.classList.remove('dark');
       window.document.body.classList.add(theme);
+    },
+    toggleTheme: function () {
+      let newTheme = 'light';
+      if (this.theme === 'light') {
+        newTheme = 'dark';
+      }
+      this.setTheme(newTheme);
     }
   }
 });
