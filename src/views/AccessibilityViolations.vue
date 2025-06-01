@@ -26,12 +26,18 @@
       <ul>
         <li
           v-for="(value, key) in violation"
-          :key="violation.id + '_' + key"
+          :key="[violation.id, key].join('_')"
         >
           <strong>{{ key }}:</strong>
           <ul v-if="key === 'nodes'">
-            <li v-for="node in violation.nodes">
-              <ul v-for="(subValue, subKey) in node">
+            <li
+              v-for="(node, nodeIndex) in violation.nodes"
+              :key="[key, nodeIndex].join('_')"
+            >
+              <ul
+                v-for="(subValue, subKey) in node"
+                :key="[key, nodeIndex, subKey].join('_')"
+              >
                 <li>
                   <strong>{{ subKey }}:</strong>
                   {{ subValue }}
