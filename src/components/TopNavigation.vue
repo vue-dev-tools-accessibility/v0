@@ -103,7 +103,7 @@ export default {
     isInIframe: function () {
       try {
         return window.self !== window.top;
-      } catch (e) {
+      } catch {
         return true;
       }
     },

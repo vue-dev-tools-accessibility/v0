@@ -1,5 +1,4 @@
 import _cloneDeep from 'lodash.clonedeep';
-
 import { defineStore } from 'pinia';
 
 export const violationsStore = defineStore('violations', {
@@ -30,7 +29,7 @@ export const violationsStore = defineStore('violations', {
                 !devToolsAnchorError
               );
             });
-        })
+        });
       violationGroups = violationGroups
         .filter((violationGroup) => {
           return violationGroup.nodes.length;
