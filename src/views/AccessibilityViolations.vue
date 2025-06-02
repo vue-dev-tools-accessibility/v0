@@ -13,25 +13,29 @@
     </button>
 
     <div
-      v-for="violation in violations"
-      class="card"
-      :key="violation.id"
+      v-for="violationGroup in violations"
+      class="group"
+      :key="violationGroup.id"
     >
       <div>
-        <strong>Violation:</strong> {{ violation.id }}
+        <strong>Violation:</strong> {{ violationGroup.id }}
       </div>
       <div>
-        <strong>{{ violation.nodes.length }}</strong> violations
+        <strong>{{ violationGroup.nodes.length }}</strong> violations
+      </div>
+      <div>
+        <strong>{{ violationGroup.description }}</strong>
       </div>
       <ul>
         <li
-          v-for="(value, key) in violation"
-          :key="[violation.id, key].join('_')"
+          v-for="(value, key) in violationGroup"
+          :key="[violationGroup.id, key].join('_')"
         >
           <strong>{{ key }}:</strong>
-          <ul v-if="key === 'nodes'">
-            <li
-              v-for="(node, nodeIndex) in violation.nodes"
+          <template v-if="key === 'nodes'">
+            <div
+              v-for="(node, nodeIndex) in violationGroup.nodes"
+              class="card"
               :key="[key, nodeIndex].join('_')"
             >
               <ul
@@ -43,8 +47,8 @@
                   {{ subValue }}
                 </li>
               </ul>
-            </li>
-          </ul>
+            </div>
+          </template>
           <span v-else>
             &nbsp;{{ value }}
           </span>
@@ -99,6 +103,9 @@ export default {
 .run-axe svg {
   width: 21.6px;
   height: 21.6px;
+}
+.group {
+  border: 1px solid var(--border-color);
 }
 .card {
   border: 1px solid var(--border-color);
