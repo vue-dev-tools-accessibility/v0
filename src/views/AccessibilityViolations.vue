@@ -13,53 +13,65 @@
     </button>
 
     <div
-      v-for="violationGroup in violations"
+      v-for="(violationGroup, violationGroupIndex) in violations"
       class="group"
       :key="violationGroup.id"
     >
-      <div>
-        <strong>Violation:</strong> {{ violationGroup.id }}
+      <div
+        class="rule-heading"
+        role="button"
+        tabindex="0"
+        @click="toggleGroup(violationGroupIndex)"
+        @keyup.enter="toggleGroup(violationGroupIndex)"
+        @keydown.space.prevent="toggleGroup(violationGroupIndex)"
+      >
+        <div>
+          <strong>Violation:</strong> {{ violationGroup.id }}
+        </div>
+        <div>
+          <strong>{{ violationGroup.nodes.length }}</strong> violations
+        </div>
+        <div>
+          <strong>{{ violationGroup.description }}</strong>
+        </div>
       </div>
-      <div>
-        <strong>{{ violationGroup.nodes.length }}</strong> violations
-      </div>
-      <div>
-        <strong>{{ violationGroup.description }}</strong>
-      </div>
-      <ul>
-        <li
-          v-for="(value, key) in violationGroup"
-          :key="[violationGroup.id, key].join('_')"
-        >
-          <strong>{{ key }}:</strong>
-          <template v-if="key === 'nodes'">
-            <div
-              v-for="(node, nodeIndex) in violationGroup.nodes"
-              class="card"
-              :key="[key, nodeIndex].join('_')"
-            >
-              <ul
-                v-for="(subValue, subKey) in node"
-                :key="[key, nodeIndex, subKey].join('_')"
+      <DoxenAccordion :show="!!violationGroup.show">
+        <ul>
+          <li
+            v-for="(value, key) in violationGroup"
+            :key="[violationGroup.id, key].join('_')"
+          >
+            <strong>{{ key }}:</strong>
+            <template v-if="key === 'nodes'">
+              <div
+                v-for="(node, nodeIndex) in violationGroup.nodes"
+                class="card"
+                :key="[key, nodeIndex].join('_')"
               >
-                <li>
-                  <strong>{{ subKey }}:</strong>
-                  {{ subValue }}
-                </li>
-              </ul>
-            </div>
-          </template>
-          <span v-else>
-            &nbsp;{{ value }}
-          </span>
-        </li>
-      </ul>
+                <ul
+                  v-for="(subValue, subKey) in node"
+                  :key="[key, nodeIndex, subKey].join('_')"
+                >
+                  <li>
+                    <strong>{{ subKey }}:</strong>
+                    {{ subValue }}
+                  </li>
+                </ul>
+              </div>
+            </template>
+            <span v-else>
+              &nbsp;{{ value }}
+            </span>
+          </li>
+        </ul>
+      </DoxenAccordion>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'pinia';
+import { DoxenAccordion } from 'vue-doxen';
 
 import { violationsStore } from '@/stores/violations.js';
 
@@ -68,9 +80,22 @@ import { REQUESTS } from '@/helpers/constants.js';
 
 export default {
   name: 'AccessibilityViolations',
+  components: {
+    DoxenAccordion
+  },
   methods: {
     runAxe: function () {
       sendToParent(REQUESTS.RUN_AXE);
+    },
+    toggleGroup: function (index) {
+      if (this.violations[index].show) {
+        this.violations[index].show = false;
+        return
+      }
+      this.violations.forEach((group) => {
+        group.show = false;
+      });
+      this.violations[index].show = true;
     }
   },
   computed: {
@@ -106,6 +131,9 @@ export default {
 }
 .group {
   border: 1px solid var(--border-color);
+}
+.rule-heading {
+  cursor: pointer;
 }
 .card {
   border: 1px solid var(--border-color);
