@@ -92,10 +92,10 @@ export default {
       return (violationIdNameMap[id] || fallback);
     },
     addPeriod: function (value) {
-      if (value.endsWith('.')) {
-        return value;
+      if (value.trim().endsWith('.')) {
+        return value.trim();
       }
-      return value + '.';
+      return value.trim() + '.';
     },
     runAxe: function () {
       sendToParent(REQUESTS.RUN_AXE);
