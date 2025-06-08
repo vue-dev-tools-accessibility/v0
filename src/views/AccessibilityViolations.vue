@@ -32,33 +32,52 @@
         <span class="rule-description">{{ addPeriod(violationGroup.description) }}</span>
       </div>
       <DoxenAccordion :show="!!violationGroup.show">
+        <div class="rule-details">
+          <span
+            class="pill"
+            :class="violationGroup.impact"
+          >
+            {{ violationGroup.impact }}
+          </span>
+          <span
+            v-for="tag in violationGroup.tags"
+            class="pill gray"
+            :key="tag"
+          >
+            {{ tag }}
+          </span>
+        </div>
         <ul>
-          <li
+          <template
             v-for="(value, key) in violationGroup"
             :key="[violationGroup.id, key].join('_')"
           >
-            <strong>{{ key }}:</strong>
-            <template v-if="key === 'nodes'">
-              <div
-                v-for="(node, nodeIndex) in violationGroup.nodes"
-                class="card"
-                :key="[key, nodeIndex].join('_')"
-              >
-                <ul
-                  v-for="(subValue, subKey) in node"
-                  :key="[key, nodeIndex, subKey].join('_')"
+            <li
+              v-if="!['show', 'impact', 'tags', 'description'].includes(key)"
+            >
+              <strong>{{ key }}:</strong>
+              <template v-if="key === 'nodes'">
+                <div
+                  v-for="(node, nodeIndex) in violationGroup.nodes"
+                  class="card"
+                  :key="[key, nodeIndex].join('_')"
                 >
-                  <li>
-                    <strong>{{ subKey }}:</strong>
-                    {{ subValue }}
-                  </li>
-                </ul>
-              </div>
-            </template>
-            <span v-else>
-              &nbsp;{{ value }}
-            </span>
-          </li>
+                  <ul
+                    v-for="(subValue, subKey) in node"
+                    :key="[key, nodeIndex, subKey].join('_')"
+                  >
+                    <li>
+                      <strong>{{ subKey }}:</strong>
+                      {{ subValue }}
+                    </li>
+                  </ul>
+                </div>
+              </template>
+              <span v-else>
+                &nbsp;{{ value }}
+              </span>
+            </li>
+          </template>
         </ul>
       </DoxenAccordion>
     </div>
@@ -172,13 +191,16 @@ export default {
   opacity: 1.0;
 }
 
+.rule-details {
+  margin-top: 0.5rem;
+}
+
 .card {
   border: 1px solid var(--border-color);
 }
 .pill {
   display: inline-block;
-  background: var(--base-ink);
-  background: var(--active-ink);
+  background: var(--pill-green);
   border-radius: 50px;
   margin: 0px 0px 0.25rem 5px;
   padding: 4px 8px;
@@ -189,6 +211,15 @@ export default {
 }
 .pill:hover {
   opacity: 1.0;
+}
+.pill.serious {
+  background: var(--pill-red);
+}
+.pill.moderate {
+  background: var(--pill-yellow);
+}
+.pill.gray {
+  background: var(--pill-gray);
 }
 
 </style>
