@@ -103,7 +103,7 @@ export default {
     toggleGroup: function (index) {
       if (this.violations[index].show) {
         this.violations[index].show = false;
-        return
+        return;
       }
       this.violations.forEach((group) => {
         group.show = false;
