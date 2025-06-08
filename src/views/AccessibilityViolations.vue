@@ -37,7 +37,7 @@
             class="pill"
             :class="violationGroup.impact"
           >
-            {{ violationGroup.impact }}
+            {{ _startCase(violationGroup.impact) }}
           </span>
           <span
             v-for="tag in violationGroup.tags"
@@ -46,39 +46,46 @@
           >
             {{ tag }}
           </span>
-        </div>
-        <ul>
-          <template
-            v-for="(value, key) in violationGroup"
-            :key="[violationGroup.id, key].join('_')"
-          >
-            <li
-              v-if="!['show', 'impact', 'tags', 'description'].includes(key)"
+          <div>
+            <span class="rule-id">
+              <strong>ID:</strong>
+              {{ violationGroup.id }}
+            </span>
+          </div>
+          <div class="rule-help">
+            {{ addPeriod(violationGroup.help) }}
+            <a
+              class="rule-learn-more"
+              :href="violationGroup.helpUrl"
+              target="_blank"
+              :title="urlAsTitle(violationGroup.helpUrl)"
             >
-              <strong>{{ key }}:</strong>
-              <template v-if="key === 'nodes'">
-                <div
-                  v-for="(node, nodeIndex) in violationGroup.nodes"
-                  class="card"
-                  :key="[key, nodeIndex].join('_')"
-                >
-                  <ul
-                    v-for="(subValue, subKey) in node"
-                    :key="[key, nodeIndex, subKey].join('_')"
-                  >
-                    <li>
-                      <strong>{{ subKey }}:</strong>
-                      {{ subValue }}
-                    </li>
-                  </ul>
-                </div>
-              </template>
-              <span v-else>
-                &nbsp;{{ value }}
-              </span>
-            </li>
+              <em>Learn more.</em>
+            </a>
+          </div>
+        </div>
+        <template
+          v-for="(value, key) in violationGroup"
+          :key="[violationGroup.id, key].join('_')"
+        >
+          <template v-if="key === 'nodes'">
+            <div
+              v-for="(node, nodeIndex) in violationGroup.nodes"
+              class="card"
+              :key="[key, nodeIndex].join('_')"
+            >
+              <ul
+                v-for="(subValue, subKey) in node"
+                :key="[key, nodeIndex, subKey].join('_')"
+              >
+                <li>
+                  <strong>{{ subKey }}:</strong>
+                  {{ subValue }}
+                </li>
+              </ul>
+            </div>
           </template>
-        </ul>
+        </template>
       </DoxenAccordion>
     </div>
   </div>
@@ -100,6 +107,7 @@ export default {
     DoxenAccordion
   },
   methods: {
+    _startCase,
     violationNamer: function (id) {
       const violationIdNameMap = {
         'aria-prohibited-attr': 'ARIA Prohibited Attribute'
@@ -115,6 +123,9 @@ export default {
         return value.trim();
       }
       return value.trim() + '.';
+    },
+    urlAsTitle: function (url) {
+      return url.split('://')[1].split('?')[0];
     },
     runAxe: function () {
       sendToParent(REQUESTS.RUN_AXE);
@@ -194,9 +205,25 @@ export default {
 .rule-details {
   margin-top: 0.5rem;
 }
+.rule-id {
+  display: block;
+  margin: 1rem 0.5rem 0.5rem;
+  font-size: 0.7rem;
+}
+.rule-help {
+  margin-left: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.rule-learn-more {
+  font-size: 0.7rem;
+}
 
 .card {
   border: 1px solid var(--border-color);
+}
+.rule-details .pill {
+  font-size: 0.57rem;
+  font-weight: 650;
 }
 .pill {
   display: inline-block;
