@@ -25,15 +25,11 @@
         @keyup.enter="toggleGroup(violationGroupIndex)"
         @keydown.space.prevent="toggleGroup(violationGroupIndex)"
       >
-        <div>
-          <strong>Violation:</strong> {{ violationGroup.id }}
-        </div>
-        <div>
-          <strong>{{ violationGroup.nodes.length }}</strong> violations
-        </div>
-        <div>
-          <strong>{{ violationGroup.description }}</strong>
-        </div>
+        <span>
+          <span class="pill">{{ violationGroup.nodes.length }}</span>
+          <span class="rule-name">{{ violationNamer(violationGroup.id) }}</span>
+        </span>
+        <span class="rule-description">{{ addPeriod(violationGroup.description) }}</span>
       </div>
       <DoxenAccordion :show="!!violationGroup.show">
         <ul>
@@ -70,6 +66,7 @@
 </template>
 
 <script>
+import _startCase from 'lodash.startcase';
 import { mapState } from 'pinia';
 import { DoxenAccordion } from 'vue-doxen';
 
@@ -84,6 +81,22 @@ export default {
     DoxenAccordion
   },
   methods: {
+    violationNamer: function (id) {
+      const violationIdNameMap = {
+        'aria-prohibited-attr': 'ARIA Prohibited Attribute'
+      };
+      const fallback = _startCase(id)
+        .replace('Aria', 'ARIA')
+        .replace('Attr', 'Attribute')
+        .replace('Attributeibute', 'Attribute');
+      return (violationIdNameMap[id] || fallback);
+    },
+    addPeriod: function (value) {
+      if (value.endsWith('.')) {
+        return value;
+      }
+      return value + '.';
+    },
     runAxe: function () {
       sendToParent(REQUESTS.RUN_AXE);
     },
@@ -131,11 +144,51 @@ export default {
 }
 .group {
   border: 1px solid var(--border-color);
+  padding: 1rem;
 }
 .rule-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   cursor: pointer;
 }
+.rule-name {
+  margin: 0rem 0.75rem 0.25rem 1rem;
+  opacity: 0.9;
+}
+.rule-description {
+  background: var(--border-color);
+  border-radius: 0.25rem;
+  margin: 0px 0px 0.25rem auto;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.85rem;
+  text-align: center;
+  opacity: 0.9;
+}
+.rule-heading:hover .pill,
+.rule-heading:hover .rule-name,
+.rule-heading:hover .rule-description {
+  opacity: 1.0;
+}
+
 .card {
   border: 1px solid var(--border-color);
 }
+.pill {
+  display: inline-block;
+  background: var(--base-ink);
+  background: var(--active-ink);
+  border-radius: 50px;
+  margin: 0px 0px 0.25rem 5px;
+  padding: 4px 8px;
+  color: var(--base-bg);
+  font-size: 0.875rem;
+  font-weight: 300;
+  opacity: 0.9;
+}
+.pill:hover {
+  opacity: 1.0;
+}
+
 </style>

@@ -16,6 +16,7 @@
   "ManifestComments": [],
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
+    "lodash.startcase": "^4.4.0",
     "normalize.css": "^8.0.1",
     "pinia": "^3.0.3",
     "vue": "^3.5.14",
