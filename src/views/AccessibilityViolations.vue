@@ -78,10 +78,7 @@
                 v-if="violationGroup.id === 'color-contrast'"
                 :data="node.any[0].data"
               />
-              <DoxenCodeBox
-                :copy="false"
-                :code="node.html"
-              />
+              <CodeBlock :code="node.html" />
               <ul
                 v-for="(subValue, subKey) in node"
                 :key="[key, nodeIndex, subKey].join('_')"
@@ -102,21 +99,22 @@
 <script>
 import _startCase from 'lodash.startcase';
 import { mapState } from 'pinia';
-import { DoxenAccordion, DoxenCodeBox } from 'vue-doxen';
+import { DoxenAccordion } from 'vue-doxen';
 
 import { violationsStore } from '@/stores/violations.js';
 
 import { sendToParent } from '@/helpers/communication.js';
 import { REQUESTS } from '@/helpers/constants.js';
 
+import CodeBlock from '@/components/CodeBlock.vue';
 import ColorContrastDetails from '@/components/ColorContrastDetails.vue';
 
 export default {
   name: 'AccessibilityViolations',
   components: {
+    CodeBlock,
     ColorContrastDetails,
-    DoxenAccordion,
-    DoxenCodeBox
+    DoxenAccordion
   },
   methods: {
     _startCase,
