@@ -173,7 +173,7 @@ export default {
           }
           return '    • ' + this.upperFirst(line.trim());
         })
-        .join('\n')
+        .join('\n');
       return message.trim();
     },
     highlightTarget: function (target) {
