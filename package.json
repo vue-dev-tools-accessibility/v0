@@ -15,6 +15,7 @@
   },
   "ManifestComments": [],
   "dependencies": {
+    "color-contrast-picker": "^1.0.8",
     "lodash.clonedeep": "^4.5.0",
     "lodash.startcase": "^4.4.0",
     "normalize.css": "^8.0.1",

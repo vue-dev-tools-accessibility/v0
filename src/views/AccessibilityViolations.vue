@@ -74,11 +74,19 @@
               class="card"
               :key="[key, nodeIndex].join('_')"
             >
+              <ColorContrastDetails
+                v-if="violationGroup.id === 'color-contrast'"
+                :data="node.any[0].data"
+              />
+              <DoxenCodeBox
+                :copy="false"
+                :code="node.html"
+              />
               <ul
                 v-for="(subValue, subKey) in node"
                 :key="[key, nodeIndex, subKey].join('_')"
               >
-                <li>
+                <li v-if="!['impact'].includes(subKey)">
                   <strong>{{ subKey }}:</strong>
                   {{ subValue }}
                 </li>
@@ -94,7 +102,9 @@
 <script>
 import _startCase from 'lodash.startcase';
 import { mapState } from 'pinia';
-import { DoxenAccordion } from 'vue-doxen';
+import { DoxenAccordion, DoxenCodeBox } from 'vue-doxen';
+
+import ColorContrastDetails from '@/components/ColorContrastDetails.vue';
 
 import { violationsStore } from '@/stores/violations.js';
 
@@ -104,7 +114,9 @@ import { REQUESTS } from '@/helpers/constants.js';
 export default {
   name: 'AccessibilityViolations',
   components: {
-    DoxenAccordion
+    ColorContrastDetails,
+    DoxenAccordion,
+    DoxenCodeBox
   },
   methods: {
     _startCase,
@@ -219,7 +231,11 @@ export default {
 }
 
 .card {
+  display: inline-flex;
+  flex-direction: column;
+  max-width: 400px;
   border: 1px solid var(--border-color);
+  padding: 1rem;
 }
 .rule-details .pill {
   font-size: 0.57rem;
@@ -248,5 +264,4 @@ export default {
 .pill.gray {
   background: var(--pill-gray);
 }
-
 </style>
