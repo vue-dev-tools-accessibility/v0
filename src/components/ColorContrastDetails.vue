@@ -5,11 +5,7 @@
     (text color:
     <ColorBlock :color="data.fgColor" />,
     background color:
-    <span
-      class="color-block"
-      :style="'background:' + data.bgColor"
-    ></span>
-    <ColorBlock :color="data.fgColor" />,
+    <ColorBlock :color="data.bgColor" />,
     font size:
     <strong>{{ data.fontSize }}</strong>,
     font weight:
@@ -26,6 +22,10 @@
         <ColorBlock :color="backgroundSuggestion" />
       </li>
     </ul>
+    <template v-if="textSuggestion && backgroundSuggestion">
+      You should not need to change both text and background.
+      Changing to either of the suggestions should be enough.
+    </template>
   </div>
 </template>
 
@@ -47,7 +47,8 @@ export default {
   },
   methods: {
     makeSuggestion: function (color, fixedColor) {
-      const contrastRatio = this.data.expectedContrastRatio;
+      // '4.5:1' => '4.5' => 4.5
+      const contrastRatio = Number(this.data.expectedContrastRatio.split(':')[0]);
       const suggestion = makeHexesContrast(color, fixedColor, contrastRatio);
       if (suggestion.toUpperCase() !== color.toUpperCase()) {
         return suggestion.toUpperCase();
