@@ -31,6 +31,7 @@ export default [
 
   {
     languageOptions: {
+      ecmaVersion: 2025,
       globals: {
         ...globals.browser,
         vi: true
