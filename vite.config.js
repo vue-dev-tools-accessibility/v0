@@ -1,11 +1,9 @@
 import { fileURLToPath, URL } from 'node:url';
 
-/* eslint-disable-next-line */
+/* eslint-disable-next-line import/default */
 import vue from '@vitejs/plugin-vue';
-/* eslint-disable-next-line */
 import { defineConfig } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
-/* eslint-disable-next-line import/named */
 import { configDefaults } from 'vitest/dist/config.js';
 
 export default defineConfig({

@@ -20,7 +20,7 @@ export const violationsStore = defineStore('violations', {
                 node.html.includes('id="vue-devtools-iframe"')
               );
               const devToolsAnchorError = (
-                violationGroup.id === 'region' &&
+                ['aria-prohibited-attr', 'region'].includes(violationGroup.id) &&
                 node.html.startsWith('<div') &&
                 node.html.includes('class="vue-devtools__anchor-btn')
               );
