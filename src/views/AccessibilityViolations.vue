@@ -104,12 +104,12 @@ import _startCase from 'lodash.startcase';
 import { mapState } from 'pinia';
 import { DoxenAccordion, DoxenCodeBox } from 'vue-doxen';
 
-import ColorContrastDetails from '@/components/ColorContrastDetails.vue';
-
 import { violationsStore } from '@/stores/violations.js';
 
 import { sendToParent } from '@/helpers/communication.js';
 import { REQUESTS } from '@/helpers/constants.js';
+
+import ColorContrastDetails from '@/components/ColorContrastDetails.vue';
 
 export default {
   name: 'AccessibilityViolations',
