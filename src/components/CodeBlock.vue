@@ -2,6 +2,7 @@
   <DoxenCodeBox
     :copy="false"
     :code="formattedCode"
+    tabindex="-1"
   />
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     Element has insufficient color contrast of
-    <strong>{{ data.contrastRatio }}</strong>
+    <strong>{{ data.contrastRatio }}:1</strong>
     (text color:
     <ColorBlock :color="data.fgColor" />,
     background color:
@@ -24,7 +24,7 @@
     </ul>
     <template v-if="textSuggestion && backgroundSuggestion">
       You should not need to change both text and background.
-      Changing to either of the suggestions should be enough.
+      Changing either to the suggested color should be enough.
     </template>
   </div>
 </template>
