@@ -12,9 +12,18 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
+          'color-contrast-picker': ['color-contrast-picker'],
+          lodash: [
+            'lodash.clonedeep',
+            'lodash.startcase'
+          ],
           'normalize.css': ['normalize.css'],
+          pinia: ['pinia'],
+          'vue3-snapshot-serializer': ['vue3-snapshot-serializer'],
           vue: ['vue'],
-          'vue-options-api-constants-plugin': ['vue-options-api-constants-plugin']
+          'vue-doxen': ['vue-doxen'],
+          'vue-options-api-constants-plugin': ['vue-options-api-constants-plugin'],
+          'vue-router': ['vue-router']
         }
       }
     },

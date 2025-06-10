@@ -1,21 +1,25 @@
 <template>
   <div class="wrapper">
-    <button
-      class="run-axe"
-      :disabled="axeLoading"
-      @click="runAxe"
-    >
-      <svg
-        viewBox="0 0 32 32"
-        xmlns="http://www.w3.org/2000/svg"
+    <div class="buttons">
+      <button
+        class="run-axe"
+        :disabled="axeLoading"
+        @click="runAxe"
       >
-        <path
-          d="M12 10H6.78A11 11 0 0 1 27 16h2A13 13 0 0 0 6 7.68V4H4v8h8zm8 12h5.22A11 11 0 0 1 5 16H3a13 13 0 0 0 23 8.32V28h2v-8h-8z"
-          fill="currentColor"
-        />
-        <title>Scan for accessibility issues</title>
-      </svg>
-    </button>
+        <svg
+          viewBox="0 0 32 32"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 10H6.78A11 11 0 0 1 27 16h2A13 13 0 0 0 6 7.68V4H4v8h8zm8 12h5.22A11 11 0 0 1 5 16H3a13 13 0 0 0 23 8.32V28h2v-8h-8z"
+            fill="currentColor"
+          />
+          <title>Scan for accessibility issues</title>
+        </svg>
+      </button>
+
+      <DummyDataButton />
+    </div>
 
     <div
       v-for="(violationGroup, violationGroupIndex) in violations"
@@ -137,13 +141,15 @@ import { REQUESTS } from '@/helpers/constants.js';
 
 import CodeBlock from '@/components/CodeBlock.vue';
 import ColorContrastDetails from '@/components/ColorContrastDetails.vue';
+import DummyDataButton from '@/components/DummyDataButton.vue';
 
 export default {
   name: 'AccessibilityViolations',
   components: {
     CodeBlock,
     ColorContrastDetails,
-    DoxenAccordion
+    DoxenAccordion,
+    DummyDataButton
   },
   methods: {
     _startCase,
@@ -218,6 +224,10 @@ export default {
 <style scoped>
 .wrapper {
   padding: 11.25px;
+}
+.buttons {
+  display: flex;
+  margin-bottom: 1rem;
 }
 .run-axe {
   display: flex;
