@@ -19,6 +19,9 @@ export const listenToParent = () => {
     if (data.violations) {
       violationsStore().setViolations(data.violations);
     }
+    if (data.axeLoading) {
+      violationsStore().setAxeLoading(true);
+    }
   };
   if (window.addEventListener) {
     window.addEventListener('message', displayMessage, false);
@@ -27,6 +30,9 @@ export const listenToParent = () => {
   }
 };
 export const sendToParent = (action, data) => {
+  if (action === REQUESTS.RUN_AXE) {
+    violationsStore().setAxeLoading(true);
+  }
   // Limit requests to parent to only those permitted
   if (Object.values(REQUESTS).includes(action)) {
     parent.postMessage({ action, data }, '*');

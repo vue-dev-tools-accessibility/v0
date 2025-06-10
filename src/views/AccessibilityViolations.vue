@@ -1,6 +1,10 @@
 <template>
   <div class="wrapper">
-    <button class="run-axe" @click="runAxe">
+    <button
+      class="run-axe"
+      :disabled="axeLoading"
+      @click="runAxe"
+    >
       <svg
         viewBox="0 0 32 32"
         xmlns="http://www.w3.org/2000/svg"
@@ -200,8 +204,12 @@ export default {
   },
   computed: {
     ...mapState(violationsStore, [
+      'axeLoading',
       'violations'
     ])
+  },
+  created: function () {
+    this.runAxe();
   }
 };
 </script>
@@ -224,6 +232,10 @@ export default {
 }
 .run-axe:hover {
   opacity: 1.0;
+}
+.run-axe[disabled],
+.run-axe[disabled]:hover {
+  opacity: 0.4;
 }
 .run-axe svg {
   width: 21.6px;

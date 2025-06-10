@@ -4,10 +4,14 @@ import { defineStore } from 'pinia';
 export const violationsStore = defineStore('violations', {
   state: function () {
     return {
+      axeLoading: false,
       violations: []
     };
   },
   actions: {
+    setAxeLoading: function (bool) {
+      this.axeLoading = !!bool;
+    },
     setViolations: function (violations) {
       let violationGroups = _cloneDeep(violations);
       violationGroups
@@ -35,6 +39,7 @@ export const violationsStore = defineStore('violations', {
           return violationGroup.nodes.length;
         });
       this.violations = violationGroups;
+      this.setAxeLoading(false);
     }
   },
   getters: {

@@ -7,14 +7,12 @@
 
 <script>
 import { themeStore } from '@/stores/theme.js';
-import { violationsStore } from '@/stores/violations.js';
 
 import {
   listenToParent,
   sendToParent
 } from '@/helpers/communication.js';
 import { REQUESTS } from '@/helpers/constants.js';
-import { dummyData } from '@/helpers/dummyData.js';
 
 import TopNavigation from '@/components/TopNavigation.vue';
 
@@ -34,7 +32,6 @@ export default {
   },
   created: function () {
     this.initialize();
-    violationsStore().setViolations(dummyData);
   }
 };
 </script>
