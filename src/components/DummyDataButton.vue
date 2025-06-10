@@ -9,8 +9,9 @@
 </template>
 
 <script>
-import { dummyData } from '@/helpers/dummyData.js';
 import { violationsStore } from '@/stores/violations.js';
+
+import { dummyData } from '@/helpers/dummyData.js';
 
 export default {
   name: 'DummyDataButton',
