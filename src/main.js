@@ -8,7 +8,7 @@ import App from '@/App.vue';
 
 import 'normalize.css/normalize.css';
 import '@/styles/style.css';
-import 'highlightjs/styles/ir-black.css';
+import 'highlight.js/styles/ir-black.css';
 
 const app = createApp(App);
 app.use(createPinia());

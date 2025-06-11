@@ -6,7 +6,10 @@ exports[`App > Renders correctly 1`] = `
     <a
       class="link"
       href="#/violations"
-    > Violations <span class="pill">5</span></a>
+    > Violations
+      
+    <!-- v-if -->
+    </a>
     <a
       class="link"
       href="#/about"

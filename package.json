@@ -16,16 +16,16 @@
   "ManifestComments": [],
   "dependencies": {
     "color-contrast-picker": "^1.0.8",
-    "highlightjs": "^9.16.2",
+    "highlight.js": "^11.11.1",
     "lodash.clonedeep": "^4.5.0",
     "lodash.startcase": "^4.4.0",
     "normalize.css": "^8.0.1",
     "pinia": "^3.0.3",
-    "vue3-snapshot-serializer": "^2.11.0",
     "vue": "^3.5.14",
     "vue-doxen": "^0.7.4",
     "vue-options-api-constants-plugin": "^1.0.3",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "vue3-snapshot-serializer": "^2.11.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",
@@ -42,17 +42,17 @@
     "eslint-config-tjw-vue": "^4.0.0",
     "eslint-import-resolver-vite": "^2.1.0",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jest": "^28.13.0",
+    "eslint-plugin-jest": "^28.13.3",
     "eslint-plugin-vue": "^10.2.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "globals": "^16.2.0",
-    "happy-dom": "^17.6.3",
+    "happy-dom": "^18.0.1",
     "vite": "^6.2.5",
     "vite-plugin-vue-devtools": "^7.7.6",
     "vitest": "^3.2.3"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.42.0"
+    "@rollup/rollup-linux-x64-gnu": "^4.43.0"
   },
   "volta": {
     "node": "24.2.0",
