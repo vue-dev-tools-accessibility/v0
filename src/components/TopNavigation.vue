@@ -14,12 +14,6 @@
       </RouterLink>
       <RouterLink
         class="link"
-        :to="{ name: 'settings' }"
-      >
-        Settings
-      </RouterLink>
-      <RouterLink
-        class="link"
         :to="{ name: 'about' }"
       >
         About
