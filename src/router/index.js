@@ -1,8 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import AboutPlugin from '@/views/AboutPlugin.vue';
-import AccessibilityViolations from '@/views/AccessibilityViolations.vue';
-
 export const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -14,12 +11,17 @@ export const router = createRouter({
     {
       path: '/violations',
       name: 'violations',
-      component: AccessibilityViolations
+      component: () => import('@/views/AccessibilityViolations.vue')
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('@/views/PluginSettings.vue')
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutPlugin
+      component: () => import('@/views/AboutPlugin.vue')
     },
     {
       path: '/:catchAll(.*)*',
