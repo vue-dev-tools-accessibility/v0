@@ -49,14 +49,14 @@
             <span
               class="pill"
               :class="violationGroup.impact"
-              :title="_startCase(violationGroup.impact)"
+              title="Impact level"
             >
               {{ _startCase(violationGroup.impact) }}
             </span>
             <span
               v-for="tag in violationGroup.tags"
               class="pill gray"
-              :title="tag"
+              :title="getTagHoverText(tag)"
               :key="tag"
             >
               {{ tag }}
@@ -138,6 +138,7 @@ import { violationsStore } from '@/stores/violations.js';
 
 import { sendToParent } from '@/helpers/communication.js';
 import { REQUESTS } from '@/helpers/constants.js';
+import { getTagHoverText } from '@/helpers/tags.js';
 
 import CodeBlock from '@/components/CodeBlock.vue';
 import ColorContrastDetails from '@/components/ColorContrastDetails.vue';
@@ -153,6 +154,7 @@ export default {
   },
   methods: {
     _startCase,
+    getTagHoverText,
     violationNamer: function (id) {
       const violationIdNameMap = {
         'aria-prohibited-attr': 'ARIA Prohibited Attribute'
