@@ -3,19 +3,6 @@ import { defineAsyncComponent } from 'vue';
 import AsyncError from '@/components/AsyncError.vue';
 import AsyncLoading from '@/components/AsyncLoading.vue';
 
-export const escapeHtml = function (value) {
-  return value
-    .replaceAll('\xa0', '&nbsp;')
-    .replaceAll('"', '&quot;')
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;');
-};
-
-export const upperFirst = function (value) {
-  return value[0].toUpperCase() + value.slice(1);
-};
-
 /**
  * Asynchronously loads components, for better code spliting.
  *
@@ -35,4 +22,30 @@ export const asyncify = function (loader) {
     // Time to wait before showing error component
     timeout: 8000
   });
+};
+
+/**
+ * Replaces potentially dangerous characters with HTML entity encoding
+ * versions to safely allow external text to be used with v-html.
+ *
+ * @param  {string} value  Potentially unsfae string
+ * @return {string}        String with dangerous characters escaped
+ */
+export const escapeHtml = function (value) {
+  return value
+    .replaceAll('\xa0', '&nbsp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+};
+
+/**
+ * Uppercases the first character in a string.
+ *
+ * @param  {string} value  phrase
+ * @return {string}        Phrase
+ */
+export const upperFirst = function (value) {
+  return value[0].toUpperCase() + value.slice(1);
 };
