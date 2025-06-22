@@ -17,8 +17,21 @@
           <title>Scan for accessibility issues</title>
         </svg>
       </button>
+      <button
+        class="run-automatically"
+        @click.stop.prevent="runAutomatically = !runAutomatically"
+      >
+        <label>
+          <input
+            type="checkbox"
+            :value="runAutomatically"
+            @click.stop.prevent
+          >
+          Re-Run on DOM changes
+        </label>
+      </button>
 
-      <DummyDataButton />
+      <DummyDataButton v-if="false" />
     </div>
 
     <div
@@ -166,6 +179,11 @@ export default {
     RuleColorContrast: asyncify(() => import('@/components/rules/ColorContrast.vue')),
     RuleLinkInTextBlock: asyncify(() => import('@/components/rules/LinkInTextBlock.vue'))
   },
+  data: function () {
+    return {
+      runAutomatically: false
+    };
+  },
   methods: {
     _startCase,
     getTagHoverText,
@@ -243,21 +261,27 @@ export default {
 }
 .buttons {
   display: flex;
+  justify-content: end;
   margin-bottom: 1rem;
 }
-.run-axe {
+.run-axe,
+.run-automatically {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 37.6px;
   height: 37.6px;
-  border: 0px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px 0px 0px 4px;
   background: transparent;
   color: inherit;
   opacity: 0.7;
   cursor: pointer;
 }
-.run-axe:hover {
+.run-axe:hover,
+.run-axe:focus,
+.run-automatically:hover,
+.run-automatically:focus {
   opacity: 1.0;
 }
 .run-axe[disabled],
@@ -268,6 +292,20 @@ export default {
   width: 21.6px;
   height: 21.6px;
 }
+.run-automatically {
+  width: auto;
+  border: 1px solid var(--border-color);
+  border-left: 0px;
+  border-radius: 0px 4px 4px 0px;
+}
+.run-automatically label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0px 4px;
+}
+
 .group {
   border: 1px solid var(--border-color);
   padding: 1rem;
