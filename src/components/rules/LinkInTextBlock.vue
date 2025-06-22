@@ -16,13 +16,27 @@
           <ColorBlock :color="data.nodeColor" />,
           surrounding text:
           <ColorBlock :color="data.parentColor" />)
-          <ul>
-            <li>Suggested Link color: <ColorBlock :color="linkSuggestion" /></li>
-            <li>Suggested Text color: <ColorBlock :color="textSuggestion" /></li>
-          </ul>
-          You should not need to change both text and link.
-          Changing either to the suggested color should be enough to satisify this rule.
-          Keep in mind the contrast between the text/link and background as well.
+          <template v-if="linkSuggestion || textSuggestion">
+            <ul>
+              <li v-if="linkSuggestion">
+                Suggested Link color:
+                <ColorBlock :color="linkSuggestion" />
+              </li>
+              <li v-if="textSuggestion">
+                Suggested Text color:
+                <ColorBlock :color="textSuggestion" />
+              </li>
+            </ul>
+            <template v-if="linkSuggestion && textSuggestion">
+              You should not need to change both text and link.
+              Changing either to the suggested color should be enough to satisify this rule.
+            </template>
+            Keep in mind the contrast between the
+            <span v-if="textSuggestion">text</span>
+            <span v-if="linkSuggestion && textSuggestion">/</span>
+            <span v-if="linkSuggestion">link</span>
+            and background as well.
+          </template>
         </template>
         <template v-else>
           {{ violation }}
@@ -54,7 +68,6 @@ export default {
   },
   methods: {
     makeSuggestion: function (color, fixedColor) {
-      // '4.5:1' => '4.5' => 4.5
       const contrastRatio = Number(this.data.requiredContrastRatio);
       const suggestion = makeHexesContrast(color, fixedColor, contrastRatio);
       if (suggestion.toUpperCase() !== color.toUpperCase()) {
