@@ -17,19 +17,30 @@
           <title>Scan for accessibility issues</title>
         </svg>
       </button>
-      <button
+      <label
         class="run-automatically"
-        @click.stop.prevent="runAutomatically = !runAutomatically"
+        tabindex="0"
+        title="Runs Axe every time the DOM updates"
+        @keyup.enter="runAutomatically = !runAutomatically"
+        @keydown.space.prevent="runAutomatically = !runAutomatically"
       >
-        <label>
-          <input
-            type="checkbox"
-            :value="runAutomatically"
-            @click.stop.prevent
-          >
-          Re-Run on DOM changes
-        </label>
-      </button>
+        <input
+          v-model="runAutomatically"
+          type="checkbox"
+          hidden
+        >
+        <svg
+          style="width: 13.5px; height: 13.5px;"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            :d="runAutomatically ? 'm10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM3 21V3h18v18z' : 'M3 21V3h18v18zm2-2h14V5H5z'"
+            fill="currentColor"
+          />
+        </svg>
+        Run Automatically
+      </label>
 
       <DummyDataButton v-if="false" />
     </div>
@@ -112,7 +123,7 @@
                 :data="node.any[0].data"
               />
               <RuleLinkInTextBlock
-                v-if="violationGroup.id === 'link-in-text-block'"
+                v-else-if="violationGroup.id === 'link-in-text-block'"
                 class="rule-message"
                 :data="node.any[0].data"
                 :message="node.failureSummary"
@@ -282,6 +293,7 @@ export default {
 .run-axe:focus,
 .run-automatically:hover,
 .run-automatically:focus {
+  outline: none;
   opacity: 1.0;
 }
 .run-axe[disabled],
@@ -293,17 +305,11 @@ export default {
   height: 21.6px;
 }
 .run-automatically {
+  gap: 8px;
   width: auto;
-  border: 1px solid var(--border-color);
   border-left: 0px;
   border-radius: 0px 4px 4px 0px;
-}
-.run-automatically label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 0px 4px;
+  padding: 0px 8px;
 }
 
 .group {
