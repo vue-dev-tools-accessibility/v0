@@ -94,11 +94,11 @@
               class="card"
               :key="'nodes-' + nodeIndex"
             >
-              <ColorContrastDetails
+              <RuleColorContrast
                 v-if="violationGroup.id === 'color-contrast'"
                 :data="node.any[0].data"
               />
-              <LinkInTextBlockDetails
+              <RuleLinkInTextBlock
                 v-if="violationGroup.id === 'link-in-text-block'"
                 class="rule-message"
                 :data="node.any[0].data"
@@ -161,10 +161,10 @@ export default {
   name: 'AccessibilityViolations',
   components: {
     CodeBlock: asyncify(() => import('@/components/CodeBlock.vue')),
-    ColorContrastDetails: asyncify(() => import('@/components/ColorContrastDetails.vue')),
     DoxenAccordion,
     DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue')),
-    LinkInTextBlockDetails: asyncify(() => import('@/components/LinkInTextBlockDetails.vue'))
+    RuleColorContrast: asyncify(() => import('@/components/rules/ColorContrast.vue')),
+    RuleLinkInTextBlock: asyncify(() => import('@/components/rules/LinkInTextBlock.vue'))
   },
   methods: {
     _startCase,
