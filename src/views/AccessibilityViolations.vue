@@ -98,29 +98,41 @@
                 v-if="violationGroup.id === 'color-contrast'"
                 :data="node.any[0].data"
               />
-              <pre
-                v-else
-                v-text="fixMessage(node.failureSummary)"
+              <LinkInTextBlockDetails
+                v-if="violationGroup.id === 'link-in-text-block'"
                 class="rule-message"
-              ></pre>
+                :data="node.any[0].data"
+                :message="node.failureSummary"
+              />
+              <div
+                v-else
+                v-html="fixMessage(node.failureSummary)"
+                class="rule-message"
+              ></div>
 
-              <button
-                class="rule-highlight"
-                @click="highlightTarget(node.target)"
+              <template
+                v-if="![
+                  'page-has-heading-one'
+                ].includes(violationGroup.id)"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                <button
+                  class="rule-highlight"
+                  @click="highlightTarget(node.target)"
                 >
-                  <title>target icon</title>
-                  <path
-                    d="M22.08,11.04H20.08V4H13.05V2H11.04V4H4V11.04H2V13.05H4V20.08H11.04V22.08H13.05V20.08H20.08V13.05H22.08V11.04M18.07,18.07H13.05V16.06H11.04V18.07H6V13.05H8.03V11.04H6V6H11.04V8.03H13.05V6H18.07V11.04H16.06V13.05H18.07V18.07M13.05,12.05A1,1 0 0,1 12.05,13.05C11.5,13.05 11.04,12.6 11.04,12.05C11.04,11.5 11.5,11.04 12.05,11.04C12.6,11.04 13.05,11.5 13.05,12.05Z"
-                    fill="currentColor"
-                  />
-                </svg>
-                Highlight element on page
-              </button>
-              <CodeBlock :code="node.html" />
+                  <svg
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title>target icon</title>
+                    <path
+                      d="M22.08,11.04H20.08V4H13.05V2H11.04V4H4V11.04H2V13.05H4V20.08H11.04V22.08H13.05V20.08H20.08V13.05H22.08V11.04M18.07,18.07H13.05V16.06H11.04V18.07H6V13.05H8.03V11.04H6V6H11.04V8.03H13.05V6H18.07V11.04H16.06V13.05H18.07V18.07M13.05,12.05A1,1 0 0,1 12.05,13.05C11.5,13.05 11.04,12.6 11.04,12.05C11.04,11.5 11.5,11.04 12.05,11.04C12.6,11.04 13.05,11.5 13.05,12.05Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  Highlight element on page
+                </button>
+                <CodeBlock :code="node.html" />
+              </template>
             </div>
           </div>
         </div>
@@ -138,10 +150,15 @@ import { violationsStore } from '@/stores/violations.js';
 
 import { sendToParent } from '@/helpers/communication.js';
 import { REQUESTS } from '@/helpers/constants.js';
+import {
+  escapeHtml,
+  upperFirst
+} from '@/helpers/helpers.js';
 
 import CodeBlock from '@/components/CodeBlock.vue';
 import ColorContrastDetails from '@/components/ColorContrastDetails.vue';
 import DummyDataButton from '@/components/DummyDataButton.vue';
+import LinkInTextBlockDetails from '@/components/LinkInTextBlockDetails.vue';
 
 export default {
   name: 'AccessibilityViolations',
@@ -149,10 +166,12 @@ export default {
     CodeBlock,
     ColorContrastDetails,
     DoxenAccordion,
-    DummyDataButton
+    DummyDataButton,
+    LinkInTextBlockDetails
   },
   methods: {
     _startCase,
+    upperFirst,
     violationNamer: function (id) {
       const violationIdNameMap = {
         'aria-prohibited-attr': 'ARIA Prohibited Attribute'
@@ -172,22 +191,22 @@ export default {
     urlAsTitle: function (url) {
       return url.split('://')[1].split('?')[0];
     },
-    upperFirst: function (value) {
-      return value[0].toUpperCase() + value.slice(1);
-    },
     fixMessage: function (message) {
       message = message.trim();
-      message = message.replace('Fix all of the following:', '');
-      message = message.replace('Fix any of the following:', '');
-      message = this.addPeriod(message);
-      message = this.upperFirst(message);
+      message = escapeHtml(message);
+      message = message.replace('Fix all of the following:', '<strong>Fix all of the following:</strong>');
+      message = message.replace('Fix any of the following:', '<strong>Fix any of the following:</strong>');
       message = message
         .split('\n  ')
         .map((line, lineIndex) => {
           if (lineIndex === 0) {
-            return line;
+            return line + '<ul>';
           }
-          return '    • ' + this.upperFirst(line.trim());
+          let newLine = '<li>' + this.upperFirst(line.trim()) + '</li>';
+          if (message.split('\n  ').length === lineIndex + 1) {
+            return newLine + '</ul>'
+          }
+          return newLine;
         })
         .join('\n');
       return message.trim();
@@ -301,7 +320,6 @@ export default {
 .rule-message {
   margin: 0px;
   font-family: inherit;
-  text-wrap: wrap;
 }
 .rule-highlight {
   display: flex;
