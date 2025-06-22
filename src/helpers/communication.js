@@ -1,4 +1,5 @@
 import { themeStore } from '@/stores/theme.js';
+import { versionsStore } from '@/stores/versions.js';
 import { violationsStore } from '@/stores/violations.js';
 
 import { REQUESTS } from '@/helpers/constants.js';
@@ -21,6 +22,12 @@ export const listenToParent = () => {
     }
     if (data.axeLoading) {
       violationsStore().setAxeLoading(true);
+    }
+    if (data.axeVersion) {
+      versionsStore().setAxeVersion(data.axeVersion);
+    }
+    if (data.vdtaVersion) {
+      versionsStore().setVdtaVersion(data.vdtaVersion);
     }
   };
   if (window.addEventListener) {
