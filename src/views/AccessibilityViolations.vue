@@ -49,14 +49,14 @@
             <span
               class="pill"
               :class="violationGroup.impact"
-              :title="_startCase(violationGroup.impact)"
+              title="Impact level"
             >
               {{ _startCase(violationGroup.impact) }}
             </span>
             <span
               v-for="tag in violationGroup.tags"
               class="pill gray"
-              :title="tag"
+              :title="getTagHoverText(tag)"
               :key="tag"
             >
               {{ tag }}
@@ -144,6 +144,7 @@
 <script>
 import _startCase from 'lodash.startcase';
 import { mapState } from 'pinia';
+import { defineAsyncComponent } from 'vue';
 import { DoxenAccordion } from 'vue-doxen';
 
 import { violationsStore } from '@/stores/violations.js';
@@ -154,24 +155,21 @@ import {
   escapeHtml,
   upperFirst
 } from '@/helpers/helpers.js';
-
-import CodeBlock from '@/components/CodeBlock.vue';
-import ColorContrastDetails from '@/components/ColorContrastDetails.vue';
-import DummyDataButton from '@/components/DummyDataButton.vue';
-import LinkInTextBlockDetails from '@/components/LinkInTextBlockDetails.vue';
+import { getTagHoverText } from '@/helpers/tags.js';
 
 export default {
   name: 'AccessibilityViolations',
   components: {
-    CodeBlock,
-    ColorContrastDetails,
+    CodeBlock: defineAsyncComponent(() => import('@/components/CodeBlock.vue')),
+    ColorContrastDetails: defineAsyncComponent(() => import('@/components/ColorContrastDetails.vue')),
     DoxenAccordion,
-    DummyDataButton,
-    LinkInTextBlockDetails
+    DummyDataButton: defineAsyncComponent(() => import('@/components/DummyDataButton.vue')),
+    LinkInTextBlockDetails: defineAsyncComponent(() => import('@/components/LinkInTextBlockDetails.vue'))
   },
   methods: {
     _startCase,
     upperFirst,
+    getTagHoverText,
     violationNamer: function (id) {
       const violationIdNameMap = {
         'aria-prohibited-attr': 'ARIA Prohibited Attribute'

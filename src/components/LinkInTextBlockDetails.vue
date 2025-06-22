@@ -34,13 +34,12 @@
 
 <script>
 import { makeHexesContrast } from 'color-contrast-picker';
-
-import ColorBlock from '@/components/ColorBlock.vue';
+import { defineAsyncComponent } from 'vue';
 
 export default {
   name: 'LinkInTextBlockDetails',
   components: {
-    ColorBlock
+    ColorBlock: defineAsyncComponent(() => import('@/components/ColorBlock.vue'))
   },
   props: {
     data: {
