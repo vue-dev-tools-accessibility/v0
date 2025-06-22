@@ -144,7 +144,6 @@
 <script>
 import _startCase from 'lodash.startcase';
 import { mapState } from 'pinia';
-import { defineAsyncComponent } from 'vue';
 import { DoxenAccordion } from 'vue-doxen';
 
 import { violationsStore } from '@/stores/violations.js';
@@ -152,6 +151,7 @@ import { violationsStore } from '@/stores/violations.js';
 import { sendToParent } from '@/helpers/communication.js';
 import { REQUESTS } from '@/helpers/constants.js';
 import {
+  asyncify,
   escapeHtml,
   upperFirst
 } from '@/helpers/helpers.js';
@@ -160,11 +160,11 @@ import { getTagHoverText } from '@/helpers/tags.js';
 export default {
   name: 'AccessibilityViolations',
   components: {
-    CodeBlock: defineAsyncComponent(() => import('@/components/CodeBlock.vue')),
-    ColorContrastDetails: defineAsyncComponent(() => import('@/components/ColorContrastDetails.vue')),
+    CodeBlock: asyncify(() => import('@/components/CodeBlock.vue')),
+    ColorContrastDetails: asyncify(() => import('@/components/ColorContrastDetails.vue')),
     DoxenAccordion,
-    DummyDataButton: defineAsyncComponent(() => import('@/components/DummyDataButton.vue')),
-    LinkInTextBlockDetails: defineAsyncComponent(() => import('@/components/LinkInTextBlockDetails.vue'))
+    DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue')),
+    LinkInTextBlockDetails: asyncify(() => import('@/components/LinkInTextBlockDetails.vue'))
   },
   methods: {
     _startCase,
