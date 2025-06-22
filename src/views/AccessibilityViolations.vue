@@ -168,7 +168,6 @@ export default {
   },
   methods: {
     _startCase,
-    upperFirst,
     getTagHoverText,
     violationNamer: function (id) {
       const violationIdNameMap = {
@@ -200,7 +199,7 @@ export default {
           if (lineIndex === 0) {
             return line + '<ul>';
           }
-          let newLine = '<li>' + this.upperFirst(line.trim()) + '</li>';
+          let newLine = '<li>' + upperFirst(line.trim()) + '</li>';
           if (message.split('\n  ').length === lineIndex + 1) {
             return newLine + '</ul>';
           }

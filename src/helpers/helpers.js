@@ -6,7 +6,7 @@ import AsyncLoading from '@/components/AsyncLoading.vue';
 /**
  * Asynchronously loads components, for better code spliting.
  *
- * @param  {Promise} loader  () => import('@/path.file.vue')
+ * @param  {Promise} loader  () => import('@/path/file.vue')
  * @return {object}          A Vue component
  */
 export const asyncify = function (loader) {
