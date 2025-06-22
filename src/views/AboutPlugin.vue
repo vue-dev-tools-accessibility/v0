@@ -108,8 +108,11 @@
         </a>
       </div>
 
-      <div class="versions">
-        <span>
+      <div
+        v-if="vdtaVersion || axeVersion"
+        class="versions"
+      >
+        <span v-if="vdtaVersion">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -142,7 +145,7 @@
           </svg>
           {{ vdtaVersion }}
         </span>
-        <span>
+        <span v-if="axeVersion">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
