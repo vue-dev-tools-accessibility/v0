@@ -148,7 +148,7 @@ import { DoxenAccordion } from 'vue-doxen';
 
 import { violationsStore } from '@/stores/violations.js';
 
-import { sendToParent } from '@/helpers/communication.js';
+import { sendToParent } from '@/helpers/communication/send.js';
 import { REQUESTS } from '@/helpers/constants.js';
 import {
   asyncify,

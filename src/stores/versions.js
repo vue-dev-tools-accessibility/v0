@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { sendToParent } from '@/helpers/communication.js';
+import { sendToParent } from '@/helpers/communication/send.js';
 import { REQUESTS } from '@/helpers/constants.js';
 
 export const versionsStore = defineStore('verions', {
