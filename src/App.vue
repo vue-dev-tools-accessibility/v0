@@ -8,10 +8,8 @@
 <script>
 import { themeStore } from '@/stores/theme.js';
 
-import {
-  listenToParent,
-  sendToParent
-} from '@/helpers/communication.js';
+import { listenToParent } from '@/helpers/communication/listen.js';
+import { sendToParent } from '@/helpers/communication/send.js';
 import { REQUESTS } from '@/helpers/constants.js';
 
 import TopNavigation from '@/components/TopNavigation.vue';

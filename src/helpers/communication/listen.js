@@ -1,9 +1,8 @@
 import { themeStore } from '@/stores/theme.js';
+import { versionsStore } from '@/stores/versions.js';
 import { violationsStore } from '@/stores/violations.js';
 
-import { REQUESTS } from '@/helpers/constants.js';
-
-const handleError = (error) => {
+const logError = (error) => {
   console.log('Axe had an error', error);
 };
 
@@ -14,7 +13,7 @@ export const listenToParent = () => {
       themeStore().setTheme(data.theme);
     }
     if (data.error) {
-      handleError(data.error);
+      logError(data.error);
     }
     if (data.violations) {
       violationsStore().setViolations(data.violations);
@@ -22,19 +21,16 @@ export const listenToParent = () => {
     if (data.axeLoading) {
       violationsStore().setAxeLoading(true);
     }
+    if (data.axeVersion) {
+      versionsStore().setAxeVersion(data.axeVersion);
+    }
+    if (data.vdtaVersion) {
+      versionsStore().setVdtaVersion(data.vdtaVersion);
+    }
   };
   if (window.addEventListener) {
     window.addEventListener('message', displayMessage, false);
   } else {
     window.attachEvent('onmessage', displayMessage);
-  }
-};
-export const sendToParent = (action, data) => {
-  if (action === REQUESTS.RUN_AXE) {
-    violationsStore().setAxeLoading(true);
-  }
-  // Limit requests to parent to only those permitted
-  if (Object.values(REQUESTS).includes(action)) {
-    parent.postMessage({ action, data }, '*');
   }
 };
