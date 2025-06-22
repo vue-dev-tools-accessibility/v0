@@ -202,7 +202,7 @@ export default {
           }
           let newLine = '<li>' + this.upperFirst(line.trim()) + '</li>';
           if (message.split('\n  ').length === lineIndex + 1) {
-            return newLine + '</ul>'
+            return newLine + '</ul>';
           }
           return newLine;
         })
