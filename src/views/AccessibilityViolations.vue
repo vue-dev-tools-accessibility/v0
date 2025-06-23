@@ -21,13 +21,14 @@
         class="run-automatically"
         tabindex="0"
         title="Runs Axe every time the DOM updates"
-        @keyup.enter="runAutomatically = !runAutomatically"
-        @keydown.space.prevent="runAutomatically = !runAutomatically"
+        @keyup.enter="toggleAutoRun"
+        @keydown.space.prevent="toggleAutoRun"
       >
         <input
-          v-model="runAutomatically"
           type="checkbox"
           hidden
+          :value="autoRun"
+          @input="toggleAutoRun"
         >
         <svg
           style="width: 13.5px; height: 13.5px;"
@@ -35,7 +36,7 @@
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            :d="runAutomatically ? 'm10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM3 21V3h18v18z' : 'M3 21V3h18v18zm2-2h14V5H5z'"
+            :d="autoRun ? 'm10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM3 21V3h18v18z' : 'M3 21V3h18v18zm2-2h14V5H5z'"
             fill="currentColor"
           />
         </svg>
@@ -57,9 +58,9 @@
         class="rule-heading"
         role="button"
         tabindex="0"
-        @click="toggleGroup(violationGroupIndex)"
-        @keyup.enter="toggleGroup(violationGroupIndex)"
-        @keydown.space.prevent="toggleGroup(violationGroupIndex)"
+        @click="toggleGroup(violationGroup.id)"
+        @keyup.enter="toggleGroup(violationGroup.id)"
+        @keydown.space.prevent="toggleGroup(violationGroup.id)"
       >
         <span>
           <span class="pill">{{ violationGroup.nodes.length }}</span>
@@ -68,7 +69,7 @@
         <span class="rule-description">{{ addPeriod(violationGroup.description) }}</span>
       </div>
       <DoxenAccordion
-        :show="!!violationGroup.show"
+        :show="selectedAccordion === violationGroup.id"
         :key="'accordion-' + violationGroup.id"
       >
         <div>
@@ -170,9 +171,13 @@
 
 <script>
 import _startCase from 'lodash.startcase';
-import { mapState } from 'pinia';
+import {
+  mapActions,
+  mapState
+} from 'pinia';
 import { DoxenAccordion } from 'vue-doxen';
 
+import { autoRunStore } from '@/stores/autoRun.js';
 import { violationsStore } from '@/stores/violations.js';
 
 import { sendToParent } from '@/helpers/communication/send.js';
@@ -195,7 +200,7 @@ export default {
   },
   data: function () {
     return {
-      runAutomatically: false
+      selectedAccordion: ''
     };
   },
   methods: {
@@ -246,18 +251,21 @@ export default {
     runAxe: function () {
       sendToParent(REQUESTS.RUN_AXE);
     },
-    toggleGroup: function (index) {
-      if (this.violations[index].show) {
-        this.violations[index].show = false;
-        return;
+    toggleGroup: function (id) {
+      if (this.selectedAccordion === id) {
+        this.selectedAccordion = '';
+      } else {
+        this.selectedAccordion = id;
       }
-      this.violations.forEach((group) => {
-        group.show = false;
-      });
-      this.violations[index].show = true;
-    }
+    },
+    ...mapActions(autoRunStore, [
+      'toggleAutoRun'
+    ])
   },
   computed: {
+    ...mapState(autoRunStore, [
+      'autoRun'
+    ]),
     ...mapState(violationsStore, [
       'axeLoading',
       'violations'

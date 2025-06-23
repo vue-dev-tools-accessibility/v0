@@ -34,8 +34,8 @@ export const asyncify = function (loader) {
 export const escapeHtml = function (value) {
   return value
     .replaceAll('\xa0', '&nbsp;')
-    .replaceAll('"', '&quot;')
     .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;');
 };
