@@ -19,6 +19,7 @@
       </button>
       <label
         class="run-automatically"
+        role="button"
         tabindex="0"
         title="Runs Axe every time the DOM updates"
         @keyup.enter="toggleAutoRun"
@@ -29,7 +30,7 @@
           hidden
           :value="autoRun"
           @input="toggleAutoRun"
-        >
+        />
         <svg
           style="width: 13.5px; height: 13.5px;"
           viewBox="0 0 24 24"
@@ -50,7 +51,7 @@
     />
 
     <div
-      v-for="(violationGroup, violationGroupIndex) in violations"
+      v-for="violationGroup in violations"
       class="group"
       :key="violationGroup.id"
     >

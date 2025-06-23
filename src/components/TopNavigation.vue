@@ -10,6 +10,7 @@
           v-if="totalViolations"
           v-html="totalViolations"
           class="pill"
+          :class="{ 'pill-dim': axeLoading }"
         ></span>
       </RouterLink>
       <RouterLink
@@ -117,6 +118,7 @@ export default {
       'theme'
     ]),
     ...mapState(violationsStore, [
+      'axeLoading',
       'totalViolations'
     ])
   }
@@ -170,6 +172,10 @@ header {
 }
 .link:hover .pill {
   opacity: 1.0;
+}
+.pill-dim,
+.link:hover .pill-dim {
+  opacity: 0.4;
 }
 
 .icons {
