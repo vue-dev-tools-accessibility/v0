@@ -31,7 +31,9 @@ export default {
 <style scoped>
 .dummy-button {
   border: 0px;
+  border-radius: 4px;
   background: var(--button-bg);
+  margin-right: 8px;
   color: var(--button-text);
   opacity: 0.8;
 }

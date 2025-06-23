@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { autoRunStore } from '@/stores/autoRun.js';
 import { themeStore } from '@/stores/theme.js';
 
 import { listenToParent } from '@/helpers/communication/listen.js';
@@ -26,6 +27,7 @@ export default {
       document.addEventListener('focus', () => {
         sendToParent(REQUESTS.SEND_THEME, themeStore().theme);
       });
+      autoRunStore().toggleAutoRun();
     }
   },
   created: function () {

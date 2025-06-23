@@ -4,5 +4,6 @@ export const REQUESTS = Object.freeze({
   HIGHLIGHT_TARGET: 'highlightTarget',
   RUN_AXE: 'runAxe',
   SEND_THEME: 'sendTheme',
-  SEND_VERSIONS: 'sendVersions'
+  SEND_VERSIONS: 'sendVersions',
+  WATCH_DOM: 'watchDom'
 });

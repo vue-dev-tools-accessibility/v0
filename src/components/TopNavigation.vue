@@ -10,6 +10,7 @@
           v-if="totalViolations"
           v-html="totalViolations"
           class="pill"
+          :class="{ 'pill-dim': axeLoading }"
         ></span>
       </RouterLink>
       <RouterLink
@@ -20,6 +21,7 @@
       </RouterLink>
     </div>
     <div class="icons">
+      <DummyDataButton />
       <a
         v-if="!isInIframe"
         href="#"
@@ -92,8 +94,13 @@ import { mapActions, mapState } from 'pinia';
 import { themeStore } from '@/stores/theme.js';
 import { violationsStore } from '@/stores/violations.js';
 
+import { asyncify } from '@/helpers/helpers.js';
+
 export default {
   name: 'TopNavigation',
+  components: {
+    DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue'))
+  },
   methods: {
     ...mapActions(themeStore, [
       'toggleTheme'
@@ -111,6 +118,7 @@ export default {
       'theme'
     ]),
     ...mapState(violationsStore, [
+      'axeLoading',
       'totalViolations'
     ])
   }
@@ -164,6 +172,10 @@ header {
 }
 .link:hover .pill {
   opacity: 1.0;
+}
+.pill-dim,
+.link:hover .pill-dim {
+  opacity: 0.4;
 }
 
 .icons {

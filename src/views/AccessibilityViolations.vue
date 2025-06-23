@@ -17,12 +17,41 @@
           <title>Scan for accessibility issues</title>
         </svg>
       </button>
-
-      <DummyDataButton />
+      <label
+        class="run-automatically"
+        role="button"
+        tabindex="0"
+        title="Runs Axe every time the DOM updates"
+        @keyup.enter="toggleAutoRun"
+        @keydown.space.prevent="toggleAutoRun"
+      >
+        <input
+          type="checkbox"
+          hidden
+          :value="autoRun"
+          @input="toggleAutoRun"
+        />
+        <svg
+          style="width: 13.5px; height: 13.5px;"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            :d="autoRun ? 'm10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM3 21V3h18v18z' : 'M3 21V3h18v18zm2-2h14V5H5z'"
+            fill="currentColor"
+          />
+        </svg>
+        Run Automatically
+      </label>
     </div>
 
+    <EmptyState
+      v-if="!violations.length"
+      :style="'opacity:' + (axeLoading ? '0.4' : '1.0')"
+    />
+
     <div
-      v-for="(violationGroup, violationGroupIndex) in violations"
+      v-for="violationGroup in violations"
       class="group"
       :key="violationGroup.id"
     >
@@ -30,9 +59,9 @@
         class="rule-heading"
         role="button"
         tabindex="0"
-        @click="toggleGroup(violationGroupIndex)"
-        @keyup.enter="toggleGroup(violationGroupIndex)"
-        @keydown.space.prevent="toggleGroup(violationGroupIndex)"
+        @click="toggleGroup(violationGroup.id)"
+        @keyup.enter="toggleGroup(violationGroup.id)"
+        @keydown.space.prevent="toggleGroup(violationGroup.id)"
       >
         <span>
           <span class="pill">{{ violationGroup.nodes.length }}</span>
@@ -41,7 +70,7 @@
         <span class="rule-description">{{ addPeriod(violationGroup.description) }}</span>
       </div>
       <DoxenAccordion
-        :show="!!violationGroup.show"
+        :show="selectedAccordion === violationGroup.id"
         :key="'accordion-' + violationGroup.id"
       >
         <div>
@@ -99,7 +128,7 @@
                 :data="node.any[0].data"
               />
               <RuleLinkInTextBlock
-                v-if="violationGroup.id === 'link-in-text-block'"
+                v-else-if="violationGroup.id === 'link-in-text-block'"
                 class="rule-message"
                 :data="node.any[0].data"
                 :message="node.failureSummary"
@@ -143,9 +172,13 @@
 
 <script>
 import _startCase from 'lodash.startcase';
-import { mapState } from 'pinia';
+import {
+  mapActions,
+  mapState
+} from 'pinia';
 import { DoxenAccordion } from 'vue-doxen';
 
+import { autoRunStore } from '@/stores/autoRun.js';
 import { violationsStore } from '@/stores/violations.js';
 
 import { sendToParent } from '@/helpers/communication/send.js';
@@ -162,9 +195,14 @@ export default {
   components: {
     CodeBlock: asyncify(() => import('@/components/CodeBlock.vue')),
     DoxenAccordion,
-    DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue')),
+    EmptyState: asyncify(() => import('@/components/EmptyState.vue')),
     RuleColorContrast: asyncify(() => import('@/components/rules/ColorContrast.vue')),
     RuleLinkInTextBlock: asyncify(() => import('@/components/rules/LinkInTextBlock.vue'))
+  },
+  data: function () {
+    return {
+      selectedAccordion: ''
+    };
   },
   methods: {
     _startCase,
@@ -214,18 +252,21 @@ export default {
     runAxe: function () {
       sendToParent(REQUESTS.RUN_AXE);
     },
-    toggleGroup: function (index) {
-      if (this.violations[index].show) {
-        this.violations[index].show = false;
-        return;
+    toggleGroup: function (id) {
+      if (this.selectedAccordion === id) {
+        this.selectedAccordion = '';
+      } else {
+        this.selectedAccordion = id;
       }
-      this.violations.forEach((group) => {
-        group.show = false;
-      });
-      this.violations[index].show = true;
-    }
+    },
+    ...mapActions(autoRunStore, [
+      'toggleAutoRun'
+    ])
   },
   computed: {
+    ...mapState(autoRunStore, [
+      'autoRun'
+    ]),
     ...mapState(violationsStore, [
       'axeLoading',
       'violations'
@@ -243,21 +284,28 @@ export default {
 }
 .buttons {
   display: flex;
+  justify-content: end;
   margin-bottom: 1rem;
 }
-.run-axe {
+.run-axe,
+.run-automatically {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 37.6px;
   height: 37.6px;
-  border: 0px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px 0px 0px 4px;
   background: transparent;
   color: inherit;
   opacity: 0.7;
   cursor: pointer;
 }
-.run-axe:hover {
+.run-axe:hover,
+.run-axe:focus,
+.run-automatically:hover,
+.run-automatically:focus {
+  outline: none;
   opacity: 1.0;
 }
 .run-axe[disabled],
@@ -268,6 +316,14 @@ export default {
   width: 21.6px;
   height: 21.6px;
 }
+.run-automatically {
+  gap: 8px;
+  width: auto;
+  border-left: 0px;
+  border-radius: 0px 4px 4px 0px;
+  padding: 0px 8px;
+}
+
 .group {
   border: 1px solid var(--border-color);
   padding: 1rem;
