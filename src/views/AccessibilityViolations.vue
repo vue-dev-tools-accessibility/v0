@@ -41,9 +41,12 @@
         </svg>
         Run Automatically
       </label>
-
-      <DummyDataButton v-if="false" />
     </div>
+
+    <EmptyState
+      v-if="!violations.length"
+      :style="'opacity:' + (axeLoading ? '0.4' : '1.0')"
+    />
 
     <div
       v-for="(violationGroup, violationGroupIndex) in violations"
@@ -186,7 +189,7 @@ export default {
   components: {
     CodeBlock: asyncify(() => import('@/components/CodeBlock.vue')),
     DoxenAccordion,
-    DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue')),
+    EmptyState: asyncify(() => import('@/components/EmptyState.vue')),
     RuleColorContrast: asyncify(() => import('@/components/rules/ColorContrast.vue')),
     RuleLinkInTextBlock: asyncify(() => import('@/components/rules/LinkInTextBlock.vue'))
   },

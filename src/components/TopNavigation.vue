@@ -20,6 +20,7 @@
       </RouterLink>
     </div>
     <div class="icons">
+      <DummyDataButton />
       <a
         v-if="!isInIframe"
         href="#"
@@ -92,8 +93,13 @@ import { mapActions, mapState } from 'pinia';
 import { themeStore } from '@/stores/theme.js';
 import { violationsStore } from '@/stores/violations.js';
 
+import { asyncify } from '@/helpers/helpers.js';
+
 export default {
   name: 'TopNavigation',
+  components: {
+    DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue'))
+  },
   methods: {
     ...mapActions(themeStore, [
       'toggleTheme'
