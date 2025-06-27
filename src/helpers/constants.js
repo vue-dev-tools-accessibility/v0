@@ -5,5 +5,6 @@ export const REQUESTS = Object.freeze({
   RUN_AXE: 'runAxe',
   SEND_THEME: 'sendTheme',
   SEND_VERSIONS: 'sendVersions',
+  SET_COLOR_STANDARD: 'setColorStandard',
   WATCH_DOM: 'watchDom'
 });

@@ -7,6 +7,7 @@
 
 <script>
 import { autoRunStore } from '@/stores/autoRun.js';
+import { settingsStore } from '@/stores/settings.js';
 import { themeStore } from '@/stores/theme.js';
 
 import { listenToParent } from '@/helpers/communication/listen.js';
@@ -24,6 +25,7 @@ export default {
     initialize: function () {
       listenToParent();
       sendToParent(REQUESTS.SEND_THEME, themeStore().theme);
+      settingsStore().load();
       document.addEventListener('focus', () => {
         sendToParent(REQUESTS.SEND_THEME, themeStore().theme);
       });

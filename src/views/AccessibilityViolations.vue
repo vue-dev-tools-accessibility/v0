@@ -31,16 +31,7 @@
           :value="autoRun"
           @input="toggleAutoRun"
         />
-        <svg
-          style="width: 13.5px; height: 13.5px;"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            :d="autoRun ? 'm10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM3 21V3h18v18z' : 'M3 21V3h18v18zm2-2h14V5H5z'"
-            fill="currentColor"
-          />
-        </svg>
+        <CheckboxIcon :enabled="autoRun" />
         Run Automatically
       </label>
     </div>
@@ -64,7 +55,9 @@
         @keydown.space.prevent="toggleGroup(violationGroup.id)"
       >
         <span>
-          <span class="pill">{{ violationGroup.nodes.length }}</span>
+          <PillText type="positive">
+            {{ violationGroup.nodes.length }}
+          </PillText>
           <span class="rule-name">{{ violationNamer(violationGroup.id) }}</span>
         </span>
         <span class="rule-description">{{ addPeriod(violationGroup.description) }}</span>
@@ -75,21 +68,20 @@
       >
         <div>
           <div class="rule-details">
-            <span
-              class="pill"
-              :class="violationGroup.impact"
+            <PillText
+              :type="violationGroup.impact"
               title="Impact level"
             >
               {{ _startCase(violationGroup.impact) }}
-            </span>
-            <span
+            </PillText>
+            <PillText
               v-for="tag in violationGroup.tags"
-              class="pill gray"
+              type="common"
               :title="getTagHoverText(tag)"
               :key="tag"
             >
               {{ tag }}
-            </span>
+            </PillText>
             <div>
               <span class="rule-id">
                 <strong>ID:</strong>
@@ -99,21 +91,13 @@
             <div class="rule-help">
               {{ addPeriod(violationGroup.help) }}
               <a
-                class="rule-learn-more"
                 :href="violationGroup.helpUrl"
                 target="_blank"
                 :title="urlAsTitle(violationGroup.helpUrl)"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <title>Learn more</title>
-                  <path
-                    d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.67 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2Z"
-                    fill="currentColor"
-                  />
-                </svg>
+                <IconQuestion>
+                  Learn More
+                </IconQuestion>
               </a>
             </div>
           </div>
@@ -126,6 +110,12 @@
               <RuleColorContrast
                 v-if="violationGroup.id === 'color-contrast'"
                 :data="node.any[0].data"
+              />
+              <RuleApcaColorContrast
+                v-else-if="['color-contrast-apca-bronze', 'color-contrast-apca-silver'].includes(violationGroup.id)"
+                :data="node.all[0].data"
+                :message="node.failureSummary"
+                :standard="violationGroup.id.split('-')[3]"
               />
               <RuleLinkInTextBlock
                 v-else-if="violationGroup.id === 'link-in-text-block'"
@@ -193,9 +183,13 @@ import { getTagHoverText } from '@/helpers/tags.js';
 export default {
   name: 'AccessibilityViolations',
   components: {
+    CheckboxIcon: asyncify(() => import('@/components/CheckboxIcon.vue')),
     CodeBlock: asyncify(() => import('@/components/CodeBlock.vue')),
     DoxenAccordion,
     EmptyState: asyncify(() => import('@/components/EmptyState.vue')),
+    IconQuestion: asyncify(() => import('@/components/IconQuestion.vue')),
+    PillText: asyncify(() => import('@/components/PillText.vue')),
+    RuleApcaColorContrast: asyncify(() => import('@/components/rules/ApcaColorContrast.vue')),
     RuleColorContrast: asyncify(() => import('@/components/rules/ColorContrast.vue')),
     RuleLinkInTextBlock: asyncify(() => import('@/components/rules/LinkInTextBlock.vue'))
   },
@@ -209,7 +203,9 @@ export default {
     getTagHoverText,
     violationNamer: function (id) {
       const violationIdNameMap = {
-        'aria-prohibited-attr': 'ARIA Prohibited Attribute'
+        'aria-prohibited-attr': 'ARIA Prohibited Attribute',
+        'color-contrast-apca-bronze': 'Color Contrast (APCA Bronze)',
+        'color-contrast-apca-silver': 'Color Contrast (APCA Silver)'
       };
       const fallback = _startCase(id)
         .replace('Aria', 'ARIA')
@@ -328,6 +324,9 @@ export default {
   border: 1px solid var(--border-color);
   padding: 1rem;
 }
+.group + .group {
+  border-top: 0px;
+}
 .rule-heading {
   display: flex;
   align-items: center;
@@ -365,10 +364,6 @@ export default {
 .rule-help {
   margin-left: 0.5rem;
   margin-bottom: 1.5rem;
-}
-.rule-learn-more svg {
-  height: 20px;
-  vertical-align: bottom;
 }
 .rule-message {
   margin: 0px;
@@ -410,28 +405,5 @@ export default {
 .rule-details .pill {
   font-size: 0.57rem;
   font-weight: 650;
-}
-.pill {
-  display: inline-block;
-  background: var(--pill-green);
-  border-radius: 50px;
-  margin: 0px 0px 0.25rem 5px;
-  padding: 7px 8px 4px 8px;
-  color: var(--base-bg);
-  font-size: 0.875rem;
-  font-weight: 300;
-  opacity: 0.9;
-}
-.pill:hover {
-  opacity: 1.0;
-}
-.pill.serious {
-  background: var(--pill-red);
-}
-.pill.moderate {
-  background: var(--pill-yellow);
-}
-.pill.gray {
-  background: var(--pill-gray);
 }
 </style>

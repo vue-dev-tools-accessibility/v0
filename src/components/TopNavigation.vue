@@ -15,13 +15,19 @@
       </RouterLink>
       <RouterLink
         class="link"
+        :to="{ name: 'settings' }"
+      >
+        Settings
+      </RouterLink>
+      <RouterLink
+        class="link"
         :to="{ name: 'about' }"
       >
         About
       </RouterLink>
     </div>
     <div class="icons">
-      <DummyDataButton />
+      <DummyDataButton v-if="isLocal" />
       <a
         v-if="!isInIframe"
         href="#"
@@ -114,6 +120,9 @@ export default {
         return true;
       }
     },
+    isLocal: function () {
+      return window.location.href.includes('localhost');
+    },
     ...mapState(themeStore, [
       'theme'
     ]),
@@ -181,13 +190,20 @@ header {
 .icons {
   display: flex;
 }
-.icons a {
+.icons a,
+.icons button {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 21px;
+  background: transparent;
+  border: 0px;
   margin-right: 7.5px;
   color: var(--icon-fill);
+  cursor: pointer;
+}
+.icons a:focus {
+  outline: 1px solid currentColor;
 }
 .icons a:last-of-type {
   margin-right: 0px;
