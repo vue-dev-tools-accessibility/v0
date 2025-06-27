@@ -46,7 +46,7 @@ export default {
     standard: {
       type: String,
       required: true
-    },
+    }
   },
   computed: {
     label: function () {
