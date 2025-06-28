@@ -47,13 +47,13 @@
           newer color contrast model based on human perception of colors.
           It is a candidate for WCAG 3, and is currently in public beta.
           WCAG 3 is still in development and subject to changes prior to adoption.
-          The APCA algorithm has not been official standardized yet, and may change.
+          The APCA algorithm has not been officially standardized yet, and may change.
         </p>
         <p>
           Bronze and Silver+ are different conformence levels for enforcement,
           with Bronze being less strict. Note that APCA takes font-size and font-weight
           into account. There is a sweet spot for font size and weight when it comes
-          to readablity. So some font sizes or weights may be too small, too big, too
+          to readablity. Some font sizes or weights may be too small, too big, too
           thin, or too thick to be considered good for readability.
         </p>
       </DoxenAccordion>
@@ -104,7 +104,7 @@ export default {
 }
 fieldset {
   width: 100%;
-  max-width: 400px;
+  max-width: 415px;
   border: 1px solid var(--border-color);
 }
 legend {
