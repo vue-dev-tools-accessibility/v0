@@ -29,26 +29,32 @@
           @click="setColorStandard('bronze')"
         />
         <ChipButton
-          label="APCA Silver"
+          label="APCA Silver+"
           :selected="colorStandard === 'silver'"
           @click="setColorStandard('silver')"
         />
       </div>
       <DoxenAccordion :show="showContrastDetails">
         <p>
-          WCAG 2 AA uses the 4.5:1 mathematical contrast ratio for colors to ensure
+          <abbr title="Web Content Accessibility Guidelines, standards maintained by W3C">WCAG</abbr>
+          2 AA uses the 4.5:1 mathematical contrast ratio for colors to ensure
           there is enough contrast between elements for those with visual impairments.
         </p>
         <p>
         </p>
         <p>
-          APCA™ is a newer color contrast model based on human perception of colors.
+          <abbr title="Accessible Perceptual Contrast Algorithm">APCA</abbr>™ is a
+          newer color contrast model based on human perception of colors.
           It is a candidate for WCAG 3, and is currently in public beta.
           WCAG 3 is still in development and subject to changes prior to adoption.
           The APCA algorithm has not been official standardized yet, and may change.
         </p>
         <p>
-          Bronze and Silver are different levels of enforcement with Bronze being less strict.
+          Bronze and Silver+ are different conformence levels for enforcement,
+          with Bronze being less strict. Note that APCA takes font-size and font-weight
+          into account. There is a sweet spot for font size and weight when it comes
+          to readablity. So some font sizes or weights may be too small, too big, too
+          thin, or too thick to be considered good for readability.
         </p>
       </DoxenAccordion>
     </fieldset>
