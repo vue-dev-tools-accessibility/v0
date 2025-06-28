@@ -58,7 +58,6 @@ export default {
   background: var(--pill-gray);
   border: 0px;
   border-radius: 50px;
-  margin: 0rem 1rem 0.5rem 0rem;
   padding: 7px 12px;
   color: var(--base-bg);
   font-size: 0.875rem;

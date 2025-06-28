@@ -108,7 +108,7 @@
               :key="'nodes-' + nodeIndex"
             >
               <RuleColorContrast
-                v-if="violationGroup.id === 'color-contrast'"
+                v-if="['color-contrast', 'color-contrast-enhanced'].includes(violationGroup.id)"
                 :data="node.any[0].data"
               />
               <RuleApcaColorContrast

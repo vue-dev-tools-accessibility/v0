@@ -8,7 +8,7 @@ const STORAGE_KEY = 'VDTA_SETTINGS';
 export const settingsStore = defineStore('settings', {
   state: function () {
     return {
-      colorStandard: 'wcag'
+      colorStandard: 'aa'
     };
   },
   actions: {
@@ -17,11 +17,7 @@ export const settingsStore = defineStore('settings', {
         return;
       }
       this.colorStandard = value;
-      let data = value;
-      if (value === 'wcag') {
-        data = undefined;
-      }
-      sendToParent(REQUESTS.SET_COLOR_STANDARD, data);
+      sendToParent(REQUESTS.SET_COLOR_STANDARD, value);
       this.save();
     },
     load: function () {
