@@ -35,6 +35,7 @@ export const getTagHoverText = function (tag) {
   const TT_CATCH_ALL = 'tt*.*';
 
   const WCAG_TAGS = [
+    'wcag3',
     'wcag2a',
     'wcag2aa',
     'wcag2aaa',
@@ -46,6 +47,10 @@ export const getTagHoverText = function (tag) {
   const WCAG_CATCH_ALL = 'wcag***';
 
   const tagMap = {
+    'apca': 'APCA (Accessible Perceptual Contrast Algorithm)',
+    'apca-bronze': 'APCA (Accessible Perceptual Contrast Algorithm) bronze conformance level',
+    'apca-gold': 'APCA (Accessible Perceptual Contrast Algorithm) gold conformance level',
+    'apca-silver': 'APCA (Accessible Perceptual Contrast Algorithm) silver conformance level',
     act: 'W3C approved Accessibility Conformance Testing rules',
     'best-practice': 'Common accessibility best practices',
     [CAT_CATCH_ALL]: 'Category mappings used by Deque',
@@ -63,6 +68,7 @@ export const getTagHoverText = function (tag) {
     wcag21aa: 'WCAG 2.1 Level AA',
     wcag22aa: 'WCAG 2.2 Level AA',
     'wcag2a-obsolete': 'WCAG 2.0 Level A, no longer required for conformance',
+    wcag3: 'WCAG 3.0 (unreleased)',
     [WCAG_CATCH_ALL]: 'WCAG success criterion e.g. wcag111 maps to SC 1.1.1'
   };
 

@@ -14,9 +14,19 @@
           background color:
           <ColorBlock :color="data.bgColor" />,
           font size: <strong>{{ data.fontSize }}</strong>,
-          font weight: <strong>{{ data.fontWeight }}</strong>).
-          Expected minimum APCA lightness contrast of
-          <strong>{{ data.apcaThreshold }}<abbr title="Lightness contrast">Lc</abbr></strong>.
+          font weight: <strong>{{ data.fontWeight }}</strong>).<br>
+          <template v-if="data.apcaThreshold">
+            Expected minimum APCA lightness contrast of
+            <strong>{{ data.apcaThreshold }}<abbr title="Lightness contrast">Lc</abbr></strong>.
+          </template>
+          <template v-if="data.messageKey === 'increaseFont'">
+            <ul>
+              <li>
+                <strong>Suggestion:</strong>
+                Increase font size and/or font weight to meet APCA conformance minimums.
+              </li>
+            </ul>
+          </template>
         </template>
         <template v-else>
           {{ violation }}
