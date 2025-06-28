@@ -47,7 +47,7 @@ export const getTagHoverText = function (tag) {
   const WCAG_CATCH_ALL = 'wcag***';
 
   const tagMap = {
-    'apca': 'APCA (Accessible Perceptual Contrast Algorithm)',
+    apca: 'APCA (Accessible Perceptual Contrast Algorithm)',
     'apca-bronze': 'APCA (Accessible Perceptual Contrast Algorithm) bronze conformance level',
     'apca-gold': 'APCA (Accessible Perceptual Contrast Algorithm) gold conformance level',
     'apca-silver': 'APCA (Accessible Perceptual Contrast Algorithm) silver conformance level',
