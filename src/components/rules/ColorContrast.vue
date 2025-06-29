@@ -49,7 +49,7 @@ export default {
     makeSuggestion: function (color, fixedColor) {
       // '4.5:1' => '4.5' => 4.5
       const contrastRatio = Number(this.data.expectedContrastRatio.split(':')[0]);
-      const suggestion = makeHexesContrast(color, fixedColor, contrastRatio);
+      const suggestion = makeHexesContrast(color, fixedColor, contrastRatio) || '';
       if (suggestion.toUpperCase() !== color.toUpperCase()) {
         return suggestion.toUpperCase();
       }

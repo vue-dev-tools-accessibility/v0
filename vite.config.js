@@ -1,6 +1,5 @@
 import { fileURLToPath, URL } from 'node:url';
 
-/* eslint-disable-next-line import/default */
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';

@@ -21,6 +21,9 @@ export const listenToParent = () => {
     if (data.axeLoading) {
       violationsStore().setAxeLoading(true);
     }
+    if (data.apcaVersion) {
+      versionsStore().setApcaVersion(data.apcaVersion);
+    }
     if (data.axeVersion) {
       versionsStore().setAxeVersion(data.axeVersion);
     }
