@@ -7,12 +7,10 @@
 
 <script>
 import { autoRunStore } from '@/stores/autoRun.js';
-import { settingsStore } from '@/stores/settings.js';
 import { themeStore } from '@/stores/theme.js';
 
 import { listenToParent } from '@/helpers/communication/listen.js';
-import { sendToParent } from '@/helpers/communication/send.js';
-import { REQUESTS } from '@/helpers/constants.js';
+import { REQUESTS, sendToParent } from '@/helpers/communication/send.js';
 
 import TopNavigation from '@/components/TopNavigation.vue';
 
@@ -24,8 +22,8 @@ export default {
   methods: {
     initialize: function () {
       listenToParent();
+      sendToParent(REQUESTS.LOAD_SETTINGS);
       sendToParent(REQUESTS.SEND_THEME, themeStore().theme);
-      settingsStore().load();
       document.addEventListener('focus', () => {
         sendToParent(REQUESTS.SEND_THEME, themeStore().theme);
       });

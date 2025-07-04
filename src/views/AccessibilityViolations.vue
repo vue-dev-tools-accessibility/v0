@@ -171,8 +171,7 @@ import { DoxenAccordion } from 'vue-doxen';
 import { autoRunStore } from '@/stores/autoRun.js';
 import { violationsStore } from '@/stores/violations.js';
 
-import { sendToParent } from '@/helpers/communication/send.js';
-import { REQUESTS } from '@/helpers/constants.js';
+import { REQUESTS, sendToParent } from '@/helpers/communication/send.js';
 import {
   asyncify,
   escapeHtml,
