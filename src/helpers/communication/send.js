@@ -1,6 +1,15 @@
 import { violationsStore } from '@/stores/violations.js';
 
-import { REQUESTS } from '@/helpers/constants.js';
+export const REQUESTS = Object.freeze({
+  HIGHLIGHT_TARGET: 'highlightTarget',
+  LOAD_SETTINGS: 'loadSettings',
+  RUN_AXE: 'runAxe',
+  SAVE_SETTINGS: 'saveSettings',
+  SEND_THEME: 'sendTheme',
+  SEND_VERSIONS: 'sendVersions',
+  SET_COLOR_STANDARD: 'setColorStandard',
+  WATCH_DOM: 'watchDom'
+});
 
 export const sendToParent = (action, data) => {
   if (action === REQUESTS.RUN_AXE) {

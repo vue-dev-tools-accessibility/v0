@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { sendToParent } from '@/helpers/communication/send.js';
-import { REQUESTS } from '@/helpers/constants.js';
+import { REQUESTS, sendToParent } from '@/helpers/communication/send.js';
 
 export const autoRunStore = defineStore('autoRun', {
   state: function () {

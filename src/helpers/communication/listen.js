@@ -1,3 +1,4 @@
+import { settingsStore } from '@/stores/settings.js';
 import { themeStore } from '@/stores/theme.js';
 import { versionsStore } from '@/stores/versions.js';
 import { violationsStore } from '@/stores/violations.js';
@@ -11,6 +12,9 @@ export const listenToParent = () => {
     const data = $event.message || $event.data;
     if (data.theme) {
       themeStore().setTheme(data.theme);
+    }
+    if (data.loadSettings) {
+      settingsStore().load(data.loadSettings);
     }
     if (data.error) {
       logError(data.error);
