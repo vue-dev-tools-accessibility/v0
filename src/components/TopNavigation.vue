@@ -1,10 +1,7 @@
 <template>
   <header>
     <div class="links">
-      <RouterLink
-        class="link"
-        :to="{ name: 'violations' }"
-      >
+      <NavigationLink route="violations">
         Violations
         <span
           v-if="totalViolations"
@@ -12,19 +9,13 @@
           class="pill"
           :class="{ 'pill-dim': axeLoading }"
         ></span>
-      </RouterLink>
-      <RouterLink
-        class="link"
-        :to="{ name: 'settings' }"
-      >
+      </NavigationLink>
+      <NavigationLink route="settings">
         Settings
-      </RouterLink>
-      <RouterLink
-        class="link"
-        :to="{ name: 'about' }"
-      >
+      </NavigationLink>
+      <NavigationLink route="about">
         About
-      </RouterLink>
+      </NavigationLink>
     </div>
     <div class="icons">
       <DummyDataButton v-if="isLocal" />
@@ -105,7 +96,8 @@ import { asyncify } from '@/helpers/helpers.js';
 export default {
   name: 'TopNavigation',
   components: {
-    DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue'))
+    DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue')),
+    NavigationLink: asyncify(() => import('@/components/NavigationLink.vue'))
   },
   methods: {
     ...mapActions(themeStore, [
