@@ -19,7 +19,6 @@
       </button>
       <label
         class="run-automatically"
-        role="button"
         tabindex="0"
         title="Runs Axe every time the DOM updates"
         @keyup.enter="toggleAutoRun"
