@@ -58,7 +58,7 @@
   },
   "repository": "https://github.com/vue-dev-tools-accessibility/v0",
   "volta": {
-    "node": "24.3.0",
-    "npm": "11.4.2"
+    "node": "24.5.0",
+    "npm": "11.5.2"
   }
 }
