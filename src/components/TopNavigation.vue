@@ -144,19 +144,6 @@ header {
   display: flex;
   gap: 0.75rem;
 }
-.link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 38.5px;
-  border-bottom: 2px solid transparent;
-  text-rendering: geometricPrecision;
-}
-.router-link-active {
-  border-bottom-color: var(--active-ink);
-  color: var(--active-ink);
-  opacity: 1.0;
-}
 
 .pill {
   display: inline-block;
