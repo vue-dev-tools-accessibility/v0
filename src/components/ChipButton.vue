@@ -73,6 +73,6 @@ export default {
   opacity: 1.0;
 }
 .selected {
-  background: var(--pill-green);
+  background: var(--button-green);
 }
 </style>

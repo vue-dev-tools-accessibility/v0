@@ -5,7 +5,7 @@
   --border-color: #9CA3AF33;
   --base-bg: #FFF;
   --base-ink: #000;
-  --active-ink: #56CD96;
+  --active-ink: #28865A;
   --icon-fill: #0B1015;
   --card-hover-bg: #A3E6351A;
   --card-hover-ink: #65A30D;
@@ -13,12 +13,15 @@
   --link-ink-yellow: #FACC15;
   --button-bg: #4E34B1;
   --button-text: #FFF;
-  --pill-gray: #84849F;
+  --button-green: #1D764E;
+  --pill-gray: #5D5D76;
   --pill-green: #34B178;
-  --pill-red: #C53A3A;
+  --pill-red: #B62F2F;
   --pill-yellow: #FAA006;
+  --pill-yellow-text: #373737;
 }
 .dark {
+  --active-ink: #56CD96;
   --base-bg: #121212;
   --base-ink: #FBFBFE;
   --icon-fill: #DFE0E2;
@@ -26,8 +29,10 @@
   --button-text: #FFF;
   --pill-gray: #B9B9C6;
   --pill-green: #56CD96;
-  --pill-red: #CD5656;
+  --pill-red: #D27774;
   --pill-yellow: #FACC15;
+  --pill-yellow-text: var(--base-bg);
+  --button-green: var(--pill-green);
 }
 
 *,

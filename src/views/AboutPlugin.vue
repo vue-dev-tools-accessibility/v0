@@ -242,7 +242,10 @@ export default {
 .tagline {
   margin: 0px;
   font-size: 0.88rem;
-  opacity: 0.4;
+  opacity: 0.536;
+}
+.dark .tagline {
+  opacity: 0.458;
 }
 .card {
   display: flex;
@@ -259,6 +262,9 @@ export default {
   color: currentColor;
   box-shadow: #0000 0px 0px 0px 0px, #0000 0px 0px 0px 0px, #0000001a 0px 1px 3px 0px, #0000001a 0px 1px 2px -1px;
   cursor: default;
+  opacity: 0.536;
+}
+.dark .card {
   opacity: 0.5;
 }
 .card:hover {

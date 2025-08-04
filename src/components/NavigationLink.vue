@@ -6,7 +6,10 @@
   >
     <span
       v-bind="routerSpanAttributes"
+      tabindex="0"
       @click="navigate"
+      @keyup.enter="navigate"
+      @keydown.space.prevent="navigate"
     >
       <slot></slot>
     </span>
