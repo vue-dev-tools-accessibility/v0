@@ -4,12 +4,18 @@
     :to="{ name: route }"
     v-slot="{ navigate }"
   >
-    <span
-      v-bind="routerSpanAttributes"
-      tabindex="0"
+    <button
+      v-if="$route.name !== route"
+      class="link"
       @click="navigate"
-      @keyup.enter="navigate"
-      @keydown.space.prevent="navigate"
+    >
+      <slot></slot>
+    </button>
+    <span
+      v-else
+      aria-level="1"
+      class="link router-link-active"
+      role="heading"
     >
       <slot></slot>
     </span>
@@ -24,20 +30,6 @@ export default {
       type: String,
       required: true
     }
-  },
-  computed: {
-    routerSpanAttributes: function () {
-      if (this.$route.name === this.route) {
-        return {
-          'aria-level': '1',
-          class: 'link router-link-active',
-          role: 'heading'
-        };
-      }
-      return {
-        class: 'link'
-      };
-    }
   }
 };
 </script>
@@ -48,9 +40,17 @@ export default {
   align-items: center;
   justify-content: center;
   height: 38.5px;
+  background: transparent;
+  border: 0px;
   border-bottom: 2px solid transparent;
+  padding: 0px;
+  color: currentColor;
+  font-weight: 500;
   text-rendering: geometricPrecision;
   cursor: pointer;
+}
+.link:focus-visible {
+  outline: 1px solid currentColor;
 }
 .router-link-active {
   border-bottom-color: var(--active-ink);
