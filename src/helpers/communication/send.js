@@ -11,8 +11,20 @@ export const REQUESTS = Object.freeze({
   WATCH_DOM: 'watchDom'
 });
 
+// Move this to helper function, reuse in TopNavigation.vue
+function isInIframe () {
+  try {
+    return window.self !== window.top;
+  } catch {
+    return true;
+  }
+}
+
 export const sendToParent = (action, data) => {
-  if (action === REQUESTS.RUN_AXE) {
+  if (
+    action === REQUESTS.RUN_AXE &&
+    isInIframe()
+  ) {
     violationsStore().setAxeLoading(true);
   }
   // Limit requests to parent to only those permitted
