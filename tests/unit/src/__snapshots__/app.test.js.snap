@@ -3,24 +3,38 @@
 exports[`App > Renders correctly 1`] = `
 <header>
   <div class="links">
-    <a
-      class="link"
-      href="#/violations"
-    > Violations
-      
-    <!-- v-if -->
-    </a>
-    <a
-      class="link"
-      href="#/settings"
-    > Settings </a>
-    <a
-      class="link"
-      href="#/about"
-    > About </a>
+    <span
+      aria-level="1"
+      class="
+        link
+        router-link-active
+      "
+      role="heading"
+    >
+      Violations
+      <!-- v-if -->
+    </span>
+    <button class="link">
+      Settings
+    </button>
+    <button class="link">
+      About
+    </button>
   </div>
   <div class="icons">
-    <!---->
+    <button>
+      <!-- Icon by Gregor Cresnar -->
+      <svg
+        viewBox="0 0 100 125"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M85 91.3 74.8 77.8c-2.3-3-3.6-6.8-3.6-10.6V50.1c4.9-5.6 7.6-13.1 7-21.3-1.1-14-12.5-25.3-26.5-26.4-16.4-1.3-30.1 11-31.2 26.9v.7c0 2.6-1 6.7-2.2 9-1.3 2.4-2.6 4.8-3.7 6.5-1.1 1.7.1 3.9 2.1 3.9h3.8v13.9c0 2.8 2.3 5.1 5.1 5.1h10.5v5.3c0 3.6-1.4 7.1-4 9.6l-8 8.1c-2.3 2.4-.7 6.4 2.6 6.4h55.1c3.3-.1 5.2-3.9 3.2-6.5zm-18.2-60H49.4v17.4c-9.6 0-17.4-7.8-17.4-17.4h17.4V13.9c9.6 0 17.4 7.8 17.4 17.4z" />
+        <title>
+          Load Dummy Data
+        </title>
+      </svg>
+    </button>
     <a href="#"><svg
       viewBox="0 0 32 32"
       xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +78,72 @@ exports[`App > Renders correctly 1`] = `
   </div>
 </header>
 <main>
-  <!---->
+  <div class="wrapper">
+    <div class="buttons">
+      <button class="run-axe">
+        <svg
+          viewBox="0 0 32 32"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 10H6.78A11 11 0 0 1 27 16h2A13 13 0 0 0 6 7.68V4H4v8h8zm8 12h5.22A11 11 0 0 1 5 16H3a13 13 0 0 0 23 8.32V28h2v-8h-8z"
+            fill="currentColor"
+          />
+          <title>
+            Scan for accessibility issues
+          </title>
+        </svg>
+      </button>
+      <button
+        class="run-automatically"
+        title="Runs Axe every time the DOM updates"
+      >
+        <label>
+          <input
+            checked="false"
+            hidden=""
+            id="autorun"
+            type="checkbox"
+            value="true"
+          />
+          <svg
+            class="checkbox-icon"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM3 21V3h18v18z"
+              fill="currentColor"
+            />
+          </svg>
+          Run Automatically
+        </label>
+      </button>
+    </div>
+    <div
+      class="empty-state"
+      style="opacity: 1.0;"
+    >
+      <svg
+        height="179.7"
+        style="fill: var(--icon-fill);"
+        width="143.5"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="15.3"
+          cy="15.3"
+          r="15.3"
+          transform="translate(53.7 3)"
+        />
+        <path d="M69 141.1a35.3 35.3 0 01-18.4-65.4v-7a41.4 41.4 0 1057.8 50.2l-5-5a35.4 35.4 0 01-34.3 27.2z" />
+        <path d="M53.7 90.5a15.3 15.3 0 0015.4 15.3h30.7l30.7 30.7a7.7 7.7 0 0010.8-10.8L110.6 95a15.3 15.3 0 00-10.8-4.5H84.4v-42a33.7 33.7 0 008.6-6.3l26-26a7.7 7.7 0 00-10.8-10.9l-26 26a18.4 18.4 0 01-26.1 0l-26-26a7.7 7.7 0 00-11 10.9l26.1 26a33.7 33.7 0 008.5 6.2z" />
+        <title>
+          "Happy Wheelchair User" icon by Egon Låstad
+        </title>
+      </svg>
+      No accessibility violations found.
+    </div>
+  </div>
 </main>
 `;

@@ -20,7 +20,7 @@
     <div class="icons">
       <DummyDataButton v-if="isLocal" />
       <a
-        v-if="!isInIframe"
+        v-if="!isInIframe()"
         href="#"
         @click.prevent="toggleTheme"
       >
@@ -91,7 +91,10 @@ import { mapActions, mapState } from 'pinia';
 import { themeStore } from '@/stores/theme.js';
 import { violationsStore } from '@/stores/violations.js';
 
-import { asyncify } from '@/helpers/helpers.js';
+import {
+  asyncify,
+  isInIframe
+} from '@/helpers/helpers.js';
 
 export default {
   name: 'TopNavigation',
@@ -100,18 +103,12 @@ export default {
     NavigationLink: asyncify(() => import('@/components/NavigationLink.vue'))
   },
   methods: {
+    isInIframe,
     ...mapActions(themeStore, [
       'toggleTheme'
     ])
   },
   computed: {
-    isInIframe: function () {
-      try {
-        return window.self !== window.top;
-      } catch {
-        return true;
-      }
-    },
     isLocal: function () {
       return window.location.href.includes('localhost');
     },

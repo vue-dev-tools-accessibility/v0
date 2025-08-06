@@ -49,3 +49,16 @@ export const escapeHtml = function (value) {
 export const upperFirst = function (value) {
   return value[0].toUpperCase() + value.slice(1);
 };
+
+/**
+ * Checks if the app is being ran at the top level or in an iframe.
+ *
+ * @return {Boolean} true = we are in an iframe
+ */
+export const isInIframe = function () {
+  try {
+    return window.self !== window.top;
+  } catch {
+    return true;
+  }
+};

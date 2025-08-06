@@ -1,5 +1,7 @@
 import { violationsStore } from '@/stores/violations.js';
 
+import { isInIframe } from '@/helpers/helpers.js';
+
 export const REQUESTS = Object.freeze({
   HIGHLIGHT_TARGET: 'highlightTarget',
   LOAD_SETTINGS: 'loadSettings',
@@ -10,15 +12,6 @@ export const REQUESTS = Object.freeze({
   SET_COLOR_STANDARD: 'setColorStandard',
   WATCH_DOM: 'watchDom'
 });
-
-// Move this to helper function, reuse in TopNavigation.vue
-function isInIframe () {
-  try {
-    return window.self !== window.top;
-  } catch {
-    return true;
-  }
-}
 
 export const sendToParent = (action, data) => {
   if (
