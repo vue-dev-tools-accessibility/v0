@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
 import { configDefaults } from 'vitest/dist/config.js';
+import vueDevToolsAccessibility from 'vue-dev-tools-accessibility';
 
 export default defineConfig({
   base: '/v0',
@@ -32,7 +33,8 @@ export default defineConfig({
     vue(),
     vueDevTools({
       launchEditor: 'subl'
-    })
+    }),
+    vueDevToolsAccessibility()
   ],
   resolve: {
     alias: {

@@ -11,13 +11,12 @@ import { themeStore } from '@/stores/theme.js';
 
 import { listenToParent } from '@/helpers/communication/listen.js';
 import { REQUESTS, sendToParent } from '@/helpers/communication/send.js';
-
-import TopNavigation from '@/components/TopNavigation.vue';
+import { asyncify } from '@/helpers/helpers.js';
 
 export default {
   name: 'App',
   components: {
-    TopNavigation
+    TopNavigation: asyncify(() => import('@/components/TopNavigation.vue'))
   },
   methods: {
     initialize: function () {

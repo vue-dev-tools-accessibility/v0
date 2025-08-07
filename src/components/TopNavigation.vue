@@ -1,10 +1,7 @@
 <template>
   <header>
     <div class="links">
-      <RouterLink
-        class="link"
-        :to="{ name: 'violations' }"
-      >
+      <NavigationLink route="violations">
         Violations
         <span
           v-if="totalViolations"
@@ -12,24 +9,18 @@
           class="pill"
           :class="{ 'pill-dim': axeLoading }"
         ></span>
-      </RouterLink>
-      <RouterLink
-        class="link"
-        :to="{ name: 'settings' }"
-      >
+      </NavigationLink>
+      <NavigationLink route="settings">
         Settings
-      </RouterLink>
-      <RouterLink
-        class="link"
-        :to="{ name: 'about' }"
-      >
+      </NavigationLink>
+      <NavigationLink route="about">
         About
-      </RouterLink>
+      </NavigationLink>
     </div>
     <div class="icons">
       <DummyDataButton v-if="isLocal" />
       <a
-        v-if="!isInIframe"
+        v-if="!isInIframe()"
         href="#"
         @click.prevent="toggleTheme"
       >
@@ -100,26 +91,24 @@ import { mapActions, mapState } from 'pinia';
 import { themeStore } from '@/stores/theme.js';
 import { violationsStore } from '@/stores/violations.js';
 
-import { asyncify } from '@/helpers/helpers.js';
+import {
+  asyncify,
+  isInIframe
+} from '@/helpers/helpers.js';
 
 export default {
   name: 'TopNavigation',
   components: {
-    DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue'))
+    DummyDataButton: asyncify(() => import('@/components/DummyDataButton.vue')),
+    NavigationLink: asyncify(() => import('@/components/NavigationLink.vue'))
   },
   methods: {
+    isInIframe,
     ...mapActions(themeStore, [
       'toggleTheme'
     ])
   },
   computed: {
-    isInIframe: function () {
-      try {
-        return window.self !== window.top;
-      } catch {
-        return true;
-      }
-    },
     isLocal: function () {
       return window.location.href.includes('localhost');
     },
@@ -151,19 +140,6 @@ header {
 .links {
   display: flex;
   gap: 0.75rem;
-}
-.link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 38.5px;
-  border-bottom: 2px solid transparent;
-  text-rendering: geometricPrecision;
-}
-.router-link-active {
-  border-bottom-color: var(--active-ink);
-  color: var(--active-ink);
-  opacity: 1.0;
 }
 
 .pill {

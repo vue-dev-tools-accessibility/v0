@@ -1,9 +1,14 @@
 import { createTestingPinia } from '@pinia/testing';
-import { mount, shallowMount } from '@vue/test-utils';
+import {
+  flushPromises,
+  mount,
+  shallowMount
+} from '@vue/test-utils';
 
 import { router } from '@/router/index.js';
 
 export default {
+  flushPromises,
   setupOptions: function (options) {
     options = options || {};
     options.global = options.global || {};
@@ -22,9 +27,11 @@ export default {
     const wrapper = shallowMount(component, options);
     return wrapper;
   },
-  mount: function (component, options) {
+  mount: async function (component, options) {
     options = this.setupOptions(options);
-    const wrapper = mount(component, options);
+    const wrapper = await mount(component, options);
+    await flushPromises();
+    await vi.dynamicImportSettled();
     return wrapper;
   }
 };

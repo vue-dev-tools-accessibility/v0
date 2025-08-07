@@ -48,6 +48,7 @@ export default {
 }
 .pill.moderate {
   background: var(--pill-yellow);
+  color: var(--pill-yellow-text);
 }
 .pill.common {
   background: var(--pill-gray);

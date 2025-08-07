@@ -17,23 +17,25 @@
           <title>Scan for accessibility issues</title>
         </svg>
       </button>
-      <label
+      <button
         class="run-automatically"
-        role="button"
-        tabindex="0"
         title="Runs Axe every time the DOM updates"
+        @click="toggleAutoRun"
         @keyup.enter="toggleAutoRun"
         @keydown.space.prevent="toggleAutoRun"
       >
-        <input
-          type="checkbox"
-          hidden
-          :value="autoRun"
-          @input="toggleAutoRun"
-        />
-        <CheckboxIcon :enabled="autoRun" />
-        Run Automatically
-      </label>
+        <label>
+          <input
+            id="autorun"
+            type="checkbox"
+            hidden
+            :value="autoRun"
+            @input="toggleAutoRun"
+          />
+          <CheckboxIcon :enabled="autoRun" />
+          Run Automatically
+        </label>
+      </button>
     </div>
 
     <EmptyState

@@ -1,5 +1,7 @@
 import { violationsStore } from '@/stores/violations.js';
 
+import { isInIframe } from '@/helpers/helpers.js';
+
 export const REQUESTS = Object.freeze({
   HIGHLIGHT_TARGET: 'highlightTarget',
   LOAD_SETTINGS: 'loadSettings',
@@ -12,7 +14,10 @@ export const REQUESTS = Object.freeze({
 });
 
 export const sendToParent = (action, data) => {
-  if (action === REQUESTS.RUN_AXE) {
+  if (
+    action === REQUESTS.RUN_AXE &&
+    isInIframe()
+  ) {
     violationsStore().setAxeLoading(true);
   }
   // Limit requests to parent to only those permitted
