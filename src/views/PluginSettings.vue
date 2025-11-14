@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <fieldset>
-      <div>
+      <div class="legend-wrapper">
         <legend id="color-contrast-ruleset-label">
           Color Contrast Ruleset:
         </legend>
@@ -114,6 +114,11 @@ export default {
 .wrapper {
   padding: 11.25px;
 }
+.legend-wrapper {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
 fieldset {
   width: 100%;
   max-width: 415px;
@@ -124,8 +129,9 @@ legend {
   margin: 0.5rem 0rem 1rem 0rem;
 }
 .learn-more-button {
-  border: 0px;
   background: transparent;
+  border: 0px;
+  margin-top: 5px;
   color: var(--icon-fill);
   opacity: 0.7;
   cursor: pointer;
