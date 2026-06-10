@@ -48,7 +48,7 @@
         </p>
         <p v-if="colorStandard === 'aaa'">
           <abbr title="Web Content Accessibility Guidelines, standards maintained by W3C">WCAG</abbr>
-          2 AAA uses a contrast ration of 7:1. This is much more strict, and primarily used
+          2 AAA uses a contrast ratio of 7:1. This is much more strict, and primarily used
           by sites/apps that are aimed at a visually impaired audience, or have very important
           information that demands the highest levels of accessibility.
         </p>
