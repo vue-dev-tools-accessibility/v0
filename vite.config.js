@@ -1,30 +1,65 @@
+/* eslint-disable import-x/no-extraneous-dependencies */
 import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
-/* eslint-disable-next-line import/extensions */
+/* eslint-disable-next-line import-x/extensions */
 import { configDefaults } from 'vitest/config';
 import vueDevToolsAccessibility from 'vue-dev-tools-accessibility';
 
-export default defineConfig({
+const config = defineConfig({
   base: '/v0',
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          'color-contrast-picker': ['color-contrast-picker'],
-          lodash: [
-            'lodash.clonedeep',
-            'lodash.startcase'
-          ],
-          'normalize.css': ['normalize.css'],
-          pinia: ['pinia'],
-          'vue3-snapshot-serializer': ['vue3-snapshot-serializer'],
-          vue: ['vue'],
-          'vue-doxen': ['vue-doxen'],
-          'vue-options-api-constants-plugin': ['vue-options-api-constants-plugin'],
-          'vue-router': ['vue-router']
+        codeSplitting: {
+          groups: [
+            {
+              test: /node_modules\/color-contrast-picker/,
+              name: 'color-contrast-picker'
+            },
+            {
+              test: /node_modules\/lodash/,
+              name: 'lodash'
+            },
+            {
+              test: /node_modules\/normalize/,
+              name: 'normalize'
+            },
+            {
+              test: /node_modules\/pinia/,
+              name: 'pinia'
+            },
+            {
+              test: /node_modules\/vue-router/,
+              name: 'vue-router'
+            },
+            {
+              test: /node_modules\/vue3-snapshot-serializer/,
+              name: 'vue3-snapshot-serializer'
+            },
+            {
+              test: /node_modules\/vue-doxen/,
+              name: 'vue-doxen'
+            },
+            {
+              test: /node_modules\/vue-options-api-constants-plugin/,
+              name: 'vue-options-api-constants-plugin'
+            },
+            {
+              test: /node_modules\/vue/,
+              name: 'vue'
+            },
+            {
+              test: /node_modules/,
+              name: 'lib'
+            },
+            {
+              test: /./,
+              name: 'index'
+            }
+          ]
         }
       }
     },
@@ -65,3 +100,5 @@ export default defineConfig({
     ]
   }
 });
+
+export default config;
